@@ -52,7 +52,7 @@ export TERM="xterm-256color"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source ~/dotfiles/.powerlevel10k_config.sh
+source ~/.powerlevel10k_config.sh
 alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
 
 alias lsx='exa -lhaTR --git'
@@ -63,7 +63,7 @@ alias start_gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 # remember to run `antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
 source ~/.zsh_plugins.sh
 
-source ~/dotfiles/helm_completions.zsh
+source ~/helm_completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/nvm/init-nvm.sh
