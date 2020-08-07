@@ -33,3 +33,22 @@ Plug 'machakann/vim-highlightedyank'
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+map <C-n> :NERDTreeToggle<CR>
+
+" === NERDTree === "
+" Show hidden files/directories
+let g:NERDTreeShowHidden = 1
+
+" Remove bookmarks and help text from NERDTree
+let g:NERDTreeMinimalUI = 1
+
+" Custom icons for expandable/expanded directories
+" let g:NERDTreeDirArrowExpandable = '⬏'
+" let g:NERDTreeDirArrowCollapsible = '⬎'
+
+" Hide certain files and directories from NERDTree
+let g:NERDTreeIgnore = ['^\.DS_Store$', '\.git$[[dir]]', '\.idea$[[dir]]', '\.sass-cache$']
+
