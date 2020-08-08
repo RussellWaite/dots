@@ -37,8 +37,8 @@ set $my_swaylock swaylock -f -e -l -s stretch -i ~/circuit.png
 output * bg /home/user6/circuit.png fill
 #client.focused border background textC
 client.focused #f0c350 #f0932b #ffffff
-#default_border normal none pixel n
-default_border pixel 1 
+#default_border normal | none | pixel n
+default_border none
 for_window [app_id="Alacritty"] opacity 0.8C
 for_window [app_id="Code - OSS"] border normal
 
