@@ -1,9 +1,12 @@
+# ----------------------------------------------------------------
+# replacing with starship as the fancy p10k prompt is actually slow :-(
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
+# ----------------------------------------------------------------
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -32,6 +35,7 @@ pathadd ~/bin
 pathadd ~/bin/VSCode-linux-x64/bin
 pathadd ${KREW_ROOT:-$HOME/.krew}/bin
 pathadd ~/.cargo/bin
+pathadd ~/.dotnet/tools
 export EDITOR=nvim
 
 # setup expected defaults for ohmyzsh based plugins (kubectl for completion)
@@ -50,14 +54,20 @@ mkdir -p $ZSH_CACHE_DIR
 #export TERM=screen-256color
 export TERM="xterm-256color"
 
+# ----------------------------------------------------------------
+# replacing with starship as the fancy p10k prompt is actually slow :-(
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-source ~/.powerlevel10k_config.sh
-alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# source ~/.powerlevel10k_config.sh
+# ----------------------------------------------------------------
+eval "$(starship init zsh)"
 
+alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
 alias lsx='exa -lhaTR --git'
 alias start_i3='XDG_SESSION_TYPE=wayland dbus-run-session i3'
 alias start_gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
+alias krew='kubectl krew'
+
 # and finally - load the lovely plugins... quickly
 # using Antibody static loading - https://getantibody.github.io/usage/
 # remember to run `antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
@@ -67,6 +77,7 @@ source ~/helm_completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source /usr/share/nvm/init-nvm.sh
+
 #compdef platformio
 _platformio() {
   eval $(env COMMANDLINE="${words[1,$CURRENT]}" _PLATFORMIO_COMPLETE=complete-zsh  platformio)
@@ -82,5 +93,8 @@ if [[ "$(basename -- ${(%):-%x})" != "_pio" ]]; then
   compdef _pio pio
 fi
 
+# how I can have files in my home dir that are versioned controlled 
+# without having a .git folder in home and having to exclude everything 
+# I don't want on github
 alias dotgit='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
 dotgit config --local status.showUntrackedFiles no

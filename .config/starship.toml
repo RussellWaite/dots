@@ -1,0 +1,105 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+format = """\
+  $username\
+  $hostname\
+  $kubernetes\
+  $directory\
+  $git_branch\
+  $git_commit\
+  $git_state\
+  $git_status\
+  $docker_context\
+  $package\
+  $dotnet\
+  $elixir\
+  $elm\
+  $golang\
+  $java\
+  $julia\
+  $nodejs\
+  $php\
+  $python\
+  $rust\
+  $terraform\
+  $zig\
+  $memory_usage\
+  $env_var\
+  $cmd_duration\
+  $custom\
+  $jobs\
+  $battery\
+  $line_break\
+  $time\
+  $character\
+  """
+
+[username]
+show_always = false
+
+[time]
+disabled = false
+format = "$time"
+time_format = "%T"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = true
+
+[cmd_duration]
+min_time = 100
+format = "| slow: [$duration]($style) "
+
+# [env_var]
+# variable = "SHELL"
+# default = "unknown shell"
+
+[kubernetes]
+symbol = "⛵ "
+style = "dimmed green"
+disabled = false
+
+
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]      # The name of the module we are configuring is "character"
+symbol = "➜"     # The "symbol" segment is being set to "➜"
+
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+
+[docker]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "

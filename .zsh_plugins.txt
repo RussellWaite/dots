@@ -7,7 +7,7 @@ robbyrussell/oh-my-zsh path:plugins/tmux
 zsh-users/zsh-autosuggestions
 
 # oh yeah! (prettiness)
-romkatv/powerlevel10k
+#romkatv/powerlevel10k
 chrissicool/zsh-256color
 
 # virt
@@ -17,10 +17,9 @@ robbyrussell/oh-my-zsh path:plugins/docker
 
 # other
 robbyrussell/oh-my-zsh path:plugins/golang
-#robbyrussell/oh-my-zsh path:plugins/ufw
 
 # trial (new stuff goes here until it's found useful)
 # 12/06/2019
 zsh-users/zsh-completions
 zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-history-substring-search
+#zsh-users/zsh-history-substring-search
