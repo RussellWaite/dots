@@ -8,6 +8,9 @@
 # fi
 # ----------------------------------------------------------------
 
+# profile zsh startup (1/2)
+zmodload zsh/zprof
+
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=100000
@@ -76,7 +79,6 @@ source ~/.zsh_plugins.sh
 source ~/helm_completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source /usr/share/nvm/init-nvm.sh
 
 #compdef platformio
 _platformio() {
@@ -98,3 +100,6 @@ fi
 # I don't want on github
 alias dotgit='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
 dotgit config --local status.showUntrackedFiles no
+
+# profile zsh startup (2/2)
+zprof
