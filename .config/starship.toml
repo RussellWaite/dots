@@ -27,9 +27,9 @@ format = """\
   $memory_usage\
   $env_var\
   $cmd_duration\
+  $status\
   $custom\
   $jobs\
-  $battery\
   $line_break\
   $time\
   $character\
@@ -40,38 +40,27 @@ show_always = false
 
 [time]
 disabled = false
-format = "$time"
+format = "[$time](fg:purple)"
 time_format = "%T"
 
-# Disable the package module, hiding it from the prompt completely
 [package]
 disabled = true
 
 [cmd_duration]
 min_time = 100
-format = "| slow: [$duration]($style) "
+format = "| [slow: $duration]($style) "
+style = "fg:purple"
 
-# [env_var]
-# variable = "SHELL"
-# default = "unknown shell"
+[status]
+disabled = false
+format = "| [error: $symbol $status]($style) "
 
 [kubernetes]
 symbol = "⛵ "
 style = "dimmed green"
 disabled = false
 
-
-
-# Replace the "❯" symbol in the prompt with "➜"
-[character]      # The name of the module we are configuring is "character"
-symbol = "➜"     # The "symbol" segment is being set to "➜"
-
-[battery]
-full_symbol = ""
-charging_symbol = ""
-discharging_symbol = ""
-
-[docker]
+[docker_context]
 symbol = " "
 
 [elixir]
@@ -85,9 +74,6 @@ symbol = " "
 
 [golang]
 symbol = " "
-
-[haskell]
-symbol = " "
 
 [java]
 symbol = " "
@@ -103,3 +89,6 @@ symbol = " "
 
 [python]
 symbol = " "
+
+[rust]
+symbol = " "
