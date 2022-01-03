@@ -1,15 +1,5 @@
-# ----------------------------------------------------------------
-# replacing with starship as the fancy p10k prompt is actually slow :-(
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-# fi
-# ----------------------------------------------------------------
-
-# profile zsh startup (1/2)
-zmodload zsh/zprof
+## profile zsh startup (1/2)
+# zmodload zsh/zprof
 
 # Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
@@ -57,12 +47,6 @@ mkdir -p $ZSH_CACHE_DIR
 #export TERM=screen-256color
 export TERM="xterm-256color"
 
-# ----------------------------------------------------------------
-# replacing with starship as the fancy p10k prompt is actually slow :-(
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# source ~/.powerlevel10k_config.sh
-# ----------------------------------------------------------------
 eval "$(starship init zsh)"
 
 alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
@@ -70,6 +54,9 @@ alias lsx='exa -lhaTR --git'
 alias start_i3='XDG_SESSION_TYPE=wayland dbus-run-session i3'
 alias start_gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 alias krew='kubectl krew'
+alias nc='ncat'
+alias vim=nvim
+alias ls=exa
 
 # and finally - load the lovely plugins... quickly
 # using Antibody static loading - https://getantibody.github.io/usage/
@@ -101,5 +88,9 @@ fi
 alias dotgit='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
 dotgit config --local status.showUntrackedFiles no
 
-# profile zsh startup (2/2)
-zprof
+# in zsh enables hiding history by using a leading space e.g. " cat .zshrc" will not be added to .histfile but "cat .zshrc" still will be
+setopt HIST_IGNORE_SPACE
+
+## profile zsh startup (2/2)
+# zprof
+if [ -e /home/user6/.nix-profile/etc/profile.d/nix.sh ]; then . /home/user6/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
