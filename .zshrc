@@ -57,6 +57,7 @@ alias krew='kubectl krew'
 alias nc='ncat'
 alias vim=nvim
 alias ls=exa
+alias myip='dig TXT ip.sslip.io @ns.sslip.io +short'
 
 # and finally - load the lovely plugins... quickly
 # using Antibody static loading - https://getantibody.github.io/usage/
