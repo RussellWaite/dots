@@ -9,6 +9,9 @@ set termguicolors
 set splitbelow
 set splitright
 
+" Map the leader key to SPACE
+let mapleader="\<SPACE>"
+
 " colour overrride - these were baed on my terminal theme
 ":highlight Pmenu ctermbg=54 guibg=54 ctermfg=228 guifg=228
 ":highlight PmenuSel ctermfg=197 guifg=197
@@ -42,7 +45,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-vsnip'
 
 " Other usefull completion sources
-Plug 'hrsh7th/cmp-path'
+Plug 'hrsh8th/cmp-path'
 Plug 'hrsh7th/cmp-buffer'
 
 
@@ -75,6 +78,10 @@ Plug 'preservim/nerdtree'
 
 Plug 'machakann/vim-highlightedyank'
 Plug 'mhinz/vim-crates'
+
+" Vim Script
+Plug 'folke/which-key.nvim'
+
 
 " Pick a theme...
 " gnerally pretty - ayuu
@@ -114,6 +121,9 @@ inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Search and Replace
+nmap <Leader>s :%s//g<Left><Left>
 
 map <C-n> :NERDTreeToggle<CR>
 
@@ -155,7 +165,7 @@ local opts = {
         autoSetHints = true,
         hover_with_actions = true,
         inlay_hints = {
-            show_parameter_hints = false,
+  nvim-telescope/telescope.nvim          show_parameter_hints = false,
             parameter_hints_prefix = "",
             other_hints_prefix = "",
         },
@@ -239,9 +249,9 @@ nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " 1300ms of no cursor movement to trigger CursorHold
 set updatetime=1300
 " Show diagnostic popup on cursor hold
-" autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
-autocmd CursorHold * lua vim.diagnostic.open_float()
-
+" deprecated ... " autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+" annoying auto behaviour... "autocmd CursorHold * lua vim.diagnostic.open_float()
+nnoremap <silent> g= <cmd>lua vim.diagnostic.open_float()<CR>
 " Goto previous/next diagnostic warning/error
 nnoremap <silent> g[ <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <silent> g] <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
@@ -259,4 +269,15 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " LLDB debugging setup
+" I got rid of the debugging as it was poor... need to read up more and try
+" again in case it was me rather than the plugins!
+
+lua << EOF
+require("which-key").setup {
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+				}
+EOF
+
 
