@@ -1,16 +1,15 @@
 ## profile zsh startup (1/2)
 # zmodload zsh/zprof
 
-# Lines configured by zsh-newuser-install
 HISTFILE=~/.histfile
 HISTSIZE=100000
 SAVEHIST=100000
+setopt share_history
+
 unsetopt beep
-# End of lines configured by zsh-newuser-install
 
 # The following lines were added by compinstall
 zstyle :compinstall filename '$HOME/.zshrc'
-
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
@@ -41,11 +40,7 @@ fi
 mkdir -p $ZSH_CACHE_DIR
 
 # find out how we got 256 colours - multiple strategies are used... chrissicool/zsh-256color
-#ZSH_256COLOR_DEBUG=1
-
-# fix for using powerlevel10k in tmux
-#export TERM=screen-256color
-export TERM="xterm-256color"
+export TERM="xterm-kitty"
 
 eval "$(starship init zsh)"
 
@@ -58,13 +53,14 @@ alias nc='ncat'
 alias vim=nvim
 alias ls=exa
 alias myip='dig TXT ip.sslip.io @ns.sslip.io +short'
+alias favs='cat ~/.histfile | cut -d" " -f1 | sort | uniq -c | sort -n'
 
 # and finally - load the lovely plugins... quickly
 # using Antibody static loading - https://getantibody.github.io/usage/
 # remember to run `antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
 source ~/.zsh_plugins.sh
 
-source ~/helm_completions.zsh
+#source ~/helm_completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
