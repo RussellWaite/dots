@@ -40,7 +40,7 @@ end
 
 
 vim.cmd[[
-    autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope' | endif
+    autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope fd initial_mode=insert' | endif
 ]]
 		--autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope file_browser initial_mode=normal' | endif
 

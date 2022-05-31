@@ -1,9 +1,11 @@
 local nvim_lsp = require('lspconfig')
 
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
 local on_attach = function(client, bufnr)
+  require('completion').on_attach(client)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
@@ -49,6 +51,7 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 end
+
 
 nvim_lsp.gopls.setup{
 	cmd = {'gopls'},

@@ -21,6 +21,7 @@ require('packer').startup(function()
 						'nvim-telescope/telescope-fzf-native.nvim', 
 						run = 'make' 
 		}
+    use 'nvim-telescope/telescope-ui-select.nvim'
 
 		use 'neovim/nvim-lspconfig'
     use 'simrat39/rust-tools.nvim'
@@ -36,8 +37,9 @@ require('packer').startup(function()
 		use 'akinsho/toggleterm.nvim'
 
     -- Debugging
-    --use 'nvim-lua/plenary.nvim'
+    use 'nvim-lua/plenary.nvim' -- technically this is a duplicate as it's delcared within telescope above...
     use 'mfussenegger/nvim-dap'
+		use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
     -- status line
 		-- statusline
     use({

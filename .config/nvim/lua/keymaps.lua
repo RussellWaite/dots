@@ -96,3 +96,23 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },
   },
 })
+
+-- Debugging with DAP/rust-tools (when it's working, pfft)
+
+map("n", "<F5>",            "<Cmd>lua require'dap'.continue()<CR>", sOpts)
+map("n", "<F10>",           "<Cmd>lua require'dap'.step_over()<CR>", sOpts)
+map("n", "<F11>",           "<Cmd>lua require'dap'.step_into()<CR>", sOpts)
+map("n", "<F12>",           "<Cmd>lua require'dap'.step_out()<CR>", sOpts)
+map("n", "<leader>b<F5>",   "<Cmd>lua require'dap'.continue()<CR>", sOpts) -- these are repeated but will sho up in space+d menu when whichkey fires. 
+map("n", "<leader>b<F10>",  "<Cmd>lua require'dap'.step_over()<CR>", sOpts)
+map("n", "<leader>b<F11>",  "<Cmd>lua require'dap'.step_into()<CR>", sOpts)
+map("n", "<leader>b<F12>",  "<Cmd>lua require'dap'.step_out()<CR>", sOpts)
+map("n", "<leader>bb",      "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", sOpts)
+map("n", "<leader>bB",      "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", sOpts)
+map("n", "<leader>bl",      "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", sOpts)
+map("n", "<leader>br",      "<Cmd>lua require'dap'.repl.open()<CR>", sOpts)
+map("n", "<leader>brl",     "<Cmd>lua require'dap'.run_last()<CR>", sOpts)
+map("n", "<leader>brs",     "<Cmd>lua require'dap'.terminate()<CR>", sOpts)
+map("n", "<leader>brd",     "<Cmd>lua require'dap'.disconnect()<CR> require'dap'.close()<CR>", sOpts)
+
+map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", sOpts)
