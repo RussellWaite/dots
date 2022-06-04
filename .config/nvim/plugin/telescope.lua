@@ -6,11 +6,27 @@ local telescope = require("telescope")
 telescope.setup {
   defaults = {
     mappings = {
-      i = { ["<c-t>"] = trouble.open_with_trouble },
+      i = {
+				["<c-t>"] = trouble.open_with_trouble,
+				["<c-h>"] = "which_key"
+      },
       n = { ["<c-t>"] = trouble.open_with_trouble },
     },
   },
   extensions = {
+    ["file_browser"] = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
     ["ui-select"] = {
       require("telescope.themes").get_dropdown {
         -- even more opts
@@ -33,6 +49,7 @@ telescope.setup {
   }
 }
 
-require('telescope').load_extension('fzf') -- load native 
+require('telescope').load_extension('fzf') -- load native
 require("telescope").load_extension("file_browser")
 require("telescope").load_extension("ui-select")
+require('telescope').load_extension('dap')

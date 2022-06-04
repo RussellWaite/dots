@@ -4,7 +4,6 @@ local extension_path = vim.env.HOME .. '/.vscode-oss/extensions/vadimcn.vscode-l
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
 
--- Rust LSP
 local opts = {
   -- rust-tools options
   tools = {
@@ -16,22 +15,9 @@ local opts = {
       other_hints_prefix = "",
     },
   },
+	-- override the default hover_actions
   hover_actions = {
-			-- the border that is used for the hover window
-			-- see vim.api.nvim_open_win()
-    border = {
-      { "╭", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "╮", "FloatBorder" },
-			{ "│", "FloatBorder" },
-			{ "╯", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "╰", "FloatBorder" },
-			{ "│", "FloatBorder" },
-    },
-    -- whether the hover action window gets automatically focused
-    -- default: false
-    auto_focus = false,
+    auto_focus = true,
   },
   -- all the opts to send to nvim-lspconfig
   -- these override the defaults set by rust-tools.nvim

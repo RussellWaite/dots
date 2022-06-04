@@ -5,10 +5,17 @@ local map = vim.api.nvim_set_keymap
 
 vim.g.mapleader = ' '
 -- as declared in https://github.com/nanotee/nvim-lua-guide#defining-mappings
--- n normal, v visual select, s select, x visual, i insert, ! insert and command line, 
+-- n normal, v visual select, s select, x visual, i insert, ! insert and command line,
 -- o operator-pending, l insert cmd-line lang-arg?!?, c cmd-line, t terminal
 --
 local sOpts = {silent = true, noremap= true}
+
+local function describeOptions(desc, options)
+    local retVal = {}
+    for k,v in pairs(options) do retVal[k] = v end
+    retVal["desc"] = desc
+    return retVal
+end
 
 map('n', '<leader>sv', ':source $MYVIMRC<CR>', {noremap = true})
 
@@ -20,13 +27,13 @@ map('v', '<A-j>',      ":m '>+1<CR>gv=gv", {noremap = true})
 map('v', '<A-k>',      ":m '<-2<CR>gv=gv", {noremap = true})
 
 
-map('n', '<leader>t',  ":Telescope<cr>",{})
-map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>",{})
-map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",{})
-map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",{})
-map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",{})
+map('n', '<leader>t',  ":Telescope<cr>",{desc = "Telescope"})
+map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>",{desc = "Telescope - Find Files"})
+map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",{desc = "Telescope - Live Grep"})
+map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",{desc = "Telescope - Buffers"})
+map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",{desc = "Telescope - Help Tags"})
 
-map("n", "<space>fe",  ":Telescope file_browser<CR>", { noremap = true })
+map("n", "<space>fe",  ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer"})
 
 map("n", "<leader>xx", "<cmd>Trouble<cr>", sOpts)
 map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", sOpts)
@@ -71,7 +78,7 @@ local cmp = require('cmp')
 cmp.setup({
   snippet = {
     expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
+        require('snippy').expand_snippet(args.body)
     end,
   },
   mapping = {
@@ -99,20 +106,20 @@ cmp.setup({
 
 -- Debugging with DAP/rust-tools (when it's working, pfft)
 
-map("n", "<F5>",            "<Cmd>lua require'dap'.continue()<CR>", sOpts)
+map("n", "<F5>",            "<Cmd>lua require'dap'.continue()<CR>",  sOpts)
 map("n", "<F10>",           "<Cmd>lua require'dap'.step_over()<CR>", sOpts)
 map("n", "<F11>",           "<Cmd>lua require'dap'.step_into()<CR>", sOpts)
-map("n", "<F12>",           "<Cmd>lua require'dap'.step_out()<CR>", sOpts)
-map("n", "<leader>b<F5>",   "<Cmd>lua require'dap'.continue()<CR>", sOpts) -- these are repeated but will sho up in space+d menu when whichkey fires. 
-map("n", "<leader>b<F10>",  "<Cmd>lua require'dap'.step_over()<CR>", sOpts)
-map("n", "<leader>b<F11>",  "<Cmd>lua require'dap'.step_into()<CR>", sOpts)
-map("n", "<leader>b<F12>",  "<Cmd>lua require'dap'.step_out()<CR>", sOpts)
-map("n", "<leader>bb",      "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", sOpts)
-map("n", "<leader>bB",      "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", sOpts)
-map("n", "<leader>bl",      "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", sOpts)
-map("n", "<leader>br",      "<Cmd>lua require'dap'.repl.open()<CR>", sOpts)
-map("n", "<leader>brl",     "<Cmd>lua require'dap'.run_last()<CR>", sOpts)
-map("n", "<leader>brs",     "<Cmd>lua require'dap'.terminate()<CR>", sOpts)
-map("n", "<leader>brd",     "<Cmd>lua require'dap'.disconnect()<CR> require'dap'.close()<CR>", sOpts)
+map("n", "<F12>",           "<Cmd>lua require'dap'.step_out()<CR>",  sOpts)
+map("n", "<leader>b<F5>",   "<Cmd>lua require'dap'.continue()<CR>",  describeOptions("Continue", sOpts)) -- these are repeated, meant as hints for when whichkey.
+map("n", "<leader>b<F10>",  "<Cmd>lua require'dap'.step_over()<CR>", describeOptions("Step Over", sOpts))
+map("n", "<leader>b<F11>",  "<Cmd>lua require'dap'.step_into()<CR>", describeOptions("Step Into", sOpts))
+map("n", "<leader>b<F12>",  "<Cmd>lua require'dap'.step_out()<CR>",  describeOptions("Step Out", sOpts))
+map("n", "<leader>bb",      "<Cmd>lua require'dap'.toggle_breakpoint()<CR>", describeOptions("Toggle Breakpoint", sOpts))
+map("n", "<leader>bB",      "<Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>", describeOptions("Conditional Breakpoint", sOpts))
+map("n", "<leader>bL",      "<Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>", describeOptions("Log Breakpoint", sOpts))
+map("n", "<leader>br",      "<Cmd>lua require'dap'.repl.open()<CR>", describeOptions("REPL", sOpts))
+map("n", "<leader>bl",      "<Cmd>lua require'dap'.run_last()<CR>",  describeOptions("Run Last Config", sOpts))
+map("n", "<leader>bT",      "<Cmd>lua require'dap'.terminate()<CR>", describeOptions("Terminate", sOpts))
+map("n", "<leader>bD",      "<Cmd>lua require'dap'.disconnect()<CR> require'dap'.close()<CR>", describeOptions("Disconnect & Close", sOpts))
 
-map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", sOpts)
+map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", describeOptions("Toggle UI", sOpts))

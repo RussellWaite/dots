@@ -2,7 +2,9 @@
 
 vim.opt.number = true
 vim.opt.relativenumber = true
-vim.opt.tabstop = 2
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 -- replace syntax with treesitter
 vim.opt.autoindent = true
 vim.opt.termguicolors = true
@@ -42,5 +44,5 @@ end
 vim.cmd[[
     autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope fd initial_mode=insert' | endif
 ]]
-		--autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope file_browser initial_mode=normal' | endif
+--autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope file_browser initial_mode=normal' | endif
 
