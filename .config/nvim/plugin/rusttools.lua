@@ -1,8 +1,10 @@
 -- setup debugger based on vscode plugin - if this breaks chances are the plugin got updated so alter the path to match on next line...
-local extension_path = vim.env.HOME .. '/.vscode-oss/extensions/vadimcn.vscode-lldb-1.7.0/' 
+local extension_path = vim.env.HOME .. '/.vscode-oss/extensions/vadimcn.vscode-lldb-1.7.0/'
 -- This version has required a dirty patch to ~/.local/share/nvim/site/pack/packer/start/rust-tools.nvim/lua/rust-tools/dap.lua
 local codelldb_path = extension_path .. 'adapter/codelldb'
 local liblldb_path = extension_path .. 'lldb/lib/liblldb.so'
+
+local lsp_on_attach = require('lsp_keymap_function').on_attach
 
 local opts = {
   -- rust-tools options
@@ -24,6 +26,7 @@ local opts = {
   -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
   -- https://rust-analyzer.github.io/manual.html#features
   server = {
+    on_attach = lsp_on_attach,
     settings = {
       ["rust-analyzer"] = {
         assist = {

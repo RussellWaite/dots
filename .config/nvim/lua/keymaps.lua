@@ -7,7 +7,7 @@ vim.g.mapleader = ' '
 -- as declared in https://github.com/nanotee/nvim-lua-guide#defining-mappings
 -- n normal, v visual select, s select, x visual, i insert, ! insert and command line,
 -- o operator-pending, l insert cmd-line lang-arg?!?, c cmd-line, t terminal
---
+
 local sOpts = {silent = true, noremap= true}
 
 local function describeOptions(desc, options)
@@ -26,15 +26,15 @@ map('i', '<A-k>',      ':<Esc>:m .-2<CR>==gi', {noremap = true})
 map('v', '<A-j>',      ":m '>+1<CR>gv=gv", {noremap = true})
 map('v', '<A-k>',      ":m '<-2<CR>gv=gv", {noremap = true})
 
-
+-- Telescope
 map('n', '<leader>t',  ":Telescope<cr>",{desc = "Telescope"})
 map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>",{desc = "Telescope - Find Files"})
 map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",{desc = "Telescope - Live Grep"})
 map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",{desc = "Telescope - Buffers"})
 map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",{desc = "Telescope - Help Tags"})
-
 map("n", "<space>fe",  ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer"})
 
+-- Trouble
 map("n", "<leader>xx", "<cmd>Trouble<cr>", sOpts)
 map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", sOpts)
 map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", sOpts)
@@ -42,38 +42,7 @@ map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", sOpts)
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", sOpts)
 map("n", "gR",         "<cmd>Trouble lsp_references<cr>", sOpts)
 
-
--- copied from elsewhere
-
-map("n", "<c-]>",      "<cmd>lua vim.lsp.buf.definition()<CR>", sOpts)
-map("n", "<c-k>",      "<cmd>lua vim.lsp.buf.signature_help()<CR>", sOpts)
-map("n", "K",          "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
-map("n", "gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>", sOpts)
-map("n", "gc",         "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", sOpts)
-map("n", "gd",         "<cmd>lua vim.lsp.buf.type_definition()<CR>", sOpts)
-map("n", "gr",         "<cmd>lua vim.lsp.buf.references()<CR>", sOpts)
-map("n", "gn",         "<cmd>lua vim.lsp.buf.rename()<CR>", sOpts)
-map("n", "gs",         "<cmd>lua vim.lsp.buf.document_symbol()<CR>", sOpts)
-map("n", "gw",         "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", sOpts)
-
-
--- Replaced LSP implementation with code action plugin...
---
--- nnoremap <silent> ga        "<cmd>lua vim.lsp.buf.code_action()<CR>", sOpts)
---
-map("n", "ga",         "<cmd>CodeActionMenu<CR>", sOpts)
-map("n", "[x",         "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
-map("n", "]x",         "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
-map("n", "]s",         "<cmd>lua vim.diagnostic.show()<CR>", sOpts)
-
-
--- Replaced LSP implementation with trouble plugin...
---
--- nnoremap <silent> "<space>q",  "<cmd>lua vim.diagnostic.setloclist()<CR>"
---
---map("n", "<space>q",   "<cmd>Trouble<CR>", sOpts)
-
-
+-- Completions
 local cmp = require('cmp')
 cmp.setup({
   snippet = {
@@ -97,7 +66,7 @@ cmp.setup({
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'vsnip' },
+    { name = 'snippy' },
     { name = 'path' },
     { name = 'buffer' },
     { name = 'nvim_lsp_signature_help' },
@@ -123,3 +92,38 @@ map("n", "<leader>bT",      "<Cmd>lua require'dap'.terminate()<CR>", describeOpt
 map("n", "<leader>bD",      "<Cmd>lua require'dap'.disconnect()<CR> require'dap'.close()<CR>", describeOptions("Disconnect & Close", sOpts))
 
 map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", describeOptions("Toggle UI", sOpts))
+
+
+-- TODO: THESE LOOK BROKEN - FIX OR DISCARD!
+
+-- Replaced LSP implementation with trouble plugin...
+--
+-- nnoremap <silent> "<space>q",  "<cmd>lua vim.diagnostic.setloclist()<CR>"
+--
+--map("n", "<space>q",   "<cmd>Trouble<CR>", sOpts)
+
+
+
+-- copied from elsewhere
+
+map("n", "<c-]>",      "<cmd>lua vim.lsp.buf.definition()<CR>", sOpts)
+map("n", "<c-k>",      "<cmd>lua vim.lsp.buf.signature_help()<CR>", sOpts)
+map("n", "K",          "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
+map("n", "<leader>gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>", sOpts)
+map("n", "<leader>gc",         "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", sOpts)
+map("n", "<leader>gd",         "<cmd>lua vim.lsp.buf.type_definition()<CR>", sOpts)
+map("n", "<leader>gr",         "<cmd>lua vim.lsp.buf.references()<CR>", sOpts)
+map("n", "<leader>gn",         "<cmd>lua vim.lsp.buf.rename()<CR>", sOpts)
+map("n", "<leader>gs",         "<cmd>lua vim.lsp.buf.document_symbol()<CR>", sOpts)
+map("n", "<leader>gw",         "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", sOpts)
+
+
+-- Replaced LSP implementation with code action plugin...
+--
+-- nnoremap <silent> ga        "<cmd>lua vim.lsp.buf.code_action()<CR>", sOpts)
+--
+map("n", "<leader>ga",         "<cmd>CodeActionMenu<CR>", sOpts)
+map("n", "[x",         "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
+map("n", "]x",         "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
+map("n", "]s",         "<cmd>lua vim.diagnostic.show()<CR>", sOpts)
+

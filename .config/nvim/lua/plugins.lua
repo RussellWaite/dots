@@ -9,25 +9,13 @@ require('packer').startup(function(use)
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
-    -- use 'nvim-lua/popup.nvim'
-
-    use {
-        'nvim-telescope/telescope.nvim',
-        requires = { { 'nvim-lua/plenary.nvim'} }
-    }
-    use 'nvim-telescope/telescope-file-browser.nvim' --replace nerdtree
-    use {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'make'
-    }
-    use 'nvim-telescope/telescope-ui-select.nvim'
 
     use 'neovim/nvim-lspconfig'
 
     -- completion engine
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
-    -- use 'hrsh7th/cmp-buffer'
+    use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
 
@@ -46,19 +34,33 @@ require('packer').startup(function(use)
     use 'simrat39/rust-tools.nvim'
     use 'nvim-telescope/telescope-dap.nvim'
 
+    -- Codde hints
+    use {
+        "folke/trouble.nvim",
+        requires = "kyazdani42/nvim-web-devicons",
+    }
+    use 'folke/which-key.nvim'
+    use 'gpanders/editorconfig.nvim'
+    use 'numToStr/Comment.nvim'
+
+    -- Fancy UI stuff
+    use {
+        'nvim-telescope/telescope.nvim',
+        requires = { { 'nvim-lua/plenary.nvim'} }
+    }
+    use 'nvim-telescope/telescope-file-browser.nvim' --replace nerdtree
+    use {
+        'nvim-telescope/telescope-fzf-native.nvim',
+        run = 'make'
+    }
+    use 'nvim-telescope/telescope-ui-select.nvim'
+
     use 'kyazdani42/nvim-web-devicons'
     use({
         'nvim-lualine/lualine.nvim',
         --config = function() require('plugins.lualine') end,
         requires = { 'kyazdani42/nvim-web-devicons', opt = true }
     })
-
-    use 'folke/which-key.nvim'
-    use {
-        "folke/trouble.nvim",
-        requires = "kyazdani42/nvim-web-devicons",
-    }
-    use 'gpanders/editorconfig.nvim'
 
     use 'folke/tokyonight.nvim'
 end)
