@@ -94,34 +94,20 @@ map("n", "<leader>bD",      "<Cmd>lua require'dap'.disconnect()<CR> require'dap'
 map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", describeOptions("Toggle UI", sOpts))
 
 
+map("n", "<leader>ggdo",     "<Cmd>DiffviewOpen<CR>", describeOptions("Open Diff", sOpts))
+map("n", "<leader>ggdc",     "<Cmd>DiffviewClose<CR>", describeOptions("Close Diff", sOpts))
+map("n", "<leader>ggdh",     "<Cmd>DiffviewFileHistory<CR>", describeOptions("File History", sOpts))
+map("n", "<leader>ggdf",     "<Cmd>DiffviewFocusFiles<CR>", describeOptions("Focus Files", sOpts))
+map("n", "<leader>ggdr",     "<Cmd>DiffviewRefresh<CR>", describeOptions("Refresh Diff", sOpts))
+
 -- TODO: THESE LOOK BROKEN - FIX OR DISCARD!
 
--- Replaced LSP implementation with trouble plugin...
---
--- nnoremap <silent> "<space>q",  "<cmd>lua vim.diagnostic.setloclist()<CR>"
---
---map("n", "<space>q",   "<cmd>Trouble<CR>", sOpts)
-
-
-
--- copied from elsewhere
-
-map("n", "<c-]>",      "<cmd>lua vim.lsp.buf.definition()<CR>", sOpts)
-map("n", "<c-k>",      "<cmd>lua vim.lsp.buf.signature_help()<CR>", sOpts)
-map("n", "K",          "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
-map("n", "<leader>gi",         "<cmd>lua vim.lsp.buf.implementation()<CR>", sOpts)
 map("n", "<leader>gc",         "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", sOpts)
-map("n", "<leader>gd",         "<cmd>lua vim.lsp.buf.type_definition()<CR>", sOpts)
-map("n", "<leader>gr",         "<cmd>lua vim.lsp.buf.references()<CR>", sOpts)
-map("n", "<leader>gn",         "<cmd>lua vim.lsp.buf.rename()<CR>", sOpts)
 map("n", "<leader>gs",         "<cmd>lua vim.lsp.buf.document_symbol()<CR>", sOpts)
 map("n", "<leader>gw",         "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", sOpts)
 
 
 -- Replaced LSP implementation with code action plugin...
---
--- nnoremap <silent> ga        "<cmd>lua vim.lsp.buf.code_action()<CR>", sOpts)
---
 map("n", "<leader>ga",         "<cmd>CodeActionMenu<CR>", sOpts)
 map("n", "[x",         "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
 map("n", "]x",         "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)

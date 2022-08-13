@@ -28,6 +28,7 @@ pathadd ~/bin/VSCode-linux-x64/bin
 pathadd ${KREW_ROOT:-$HOME/.krew}/bin
 pathadd ~/.cargo/bin
 pathadd ~/.dotnet/tools
+pathadd ~/.local/bin
 export EDITOR=nvim
 
 # setup expected defaults for ohmyzsh based plugins (kubectl for completion)
@@ -91,3 +92,8 @@ setopt HIST_IGNORE_SPACE
 ## profile zsh startup (2/2)
 # zprof
 if [ -e /home/user6/.nix-profile/etc/profile.d/nix.sh ]; then . /home/user6/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+
+alias luamake=/home/user6/dev/lua/lua-language-server/3rd/luamake/luamake
+
+# opam configuration
+[[ ! -r /home/user6/.opam/opam-init/init.zsh ]] || source /home/user6/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null

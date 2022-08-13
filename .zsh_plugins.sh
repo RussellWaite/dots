@@ -19,3 +19,5 @@ source /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zs
 fpath+=( /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-completions )
 source /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
 fpath+=( /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-zsh-users-SLASH-zsh-syntax-highlighting )
+source /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-wfxr-SLASH-forgit/forgit.plugin.zsh
+fpath+=( /home/user6/.cache/antibody/https-COLON--SLASH--SLASH-github.com-SLASH-wfxr-SLASH-forgit )

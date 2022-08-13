@@ -34,7 +34,7 @@ require('packer').startup(function(use)
     use 'simrat39/rust-tools.nvim'
     use 'nvim-telescope/telescope-dap.nvim'
 
-    -- Codde hints
+    -- Code hints
     use {
         "folke/trouble.nvim",
         requires = "kyazdani42/nvim-web-devicons",
@@ -43,10 +43,19 @@ require('packer').startup(function(use)
     use 'gpanders/editorconfig.nvim'
     use 'numToStr/Comment.nvim'
 
+    -- git
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    --use { -- not tried this yet, has staging of hunk support though too and looks simpler...
+    --    'lewis6991/gitsigns.nvim',
+    --    -- tag = 'release' -- To use the latest release
+    --}
+
+
     -- Fancy UI stuff
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { { 'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
     use 'nvim-telescope/telescope-file-browser.nvim' --replace nerdtree
     use {
@@ -64,4 +73,3 @@ require('packer').startup(function(use)
 
     use 'folke/tokyonight.nvim'
 end)
-

@@ -94,4 +94,6 @@ require'lspconfig'.sumneko_lua.setup {
     },
 }
 ---- // LUA LSP
-
+---- // OCAML LSP
+require'lspconfig'.ocamllsp.setup{}
+---- // OCAML LSP
