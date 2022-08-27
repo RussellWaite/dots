@@ -49,9 +49,9 @@ local opts = {
         },
       }
     },
-    dap = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path)
-    },
+    -- dap = {
+    --    adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path)
+    -- },
 }
 require('rust-tools').setup(opts)
 
