@@ -29,6 +29,7 @@ pathadd ${KREW_ROOT:-$HOME/.krew}/bin
 pathadd ~/.cargo/bin
 pathadd ~/.dotnet/tools
 pathadd ~/.local/bin
+pathadd /usr/share/bcc/tools
 export EDITOR=nvim
 
 # setup expected defaults for ohmyzsh based plugins (kubectl for completion)
