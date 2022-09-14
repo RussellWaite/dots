@@ -31,7 +31,10 @@ require('packer').startup(function(use)
     -- Debugging
     use 'nvim-lua/plenary.nvim'
     use 'mfussenegger/nvim-dap'
-    use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
+    use {
+        "rcarriga/nvim-dap-ui",
+        requires = "mfussenegger/nvim-dap"
+    }
     use 'simrat39/rust-tools.nvim'
     use 'nvim-telescope/telescope-dap.nvim'
 
@@ -45,8 +48,14 @@ require('packer').startup(function(use)
     use 'numToStr/Comment.nvim'
 
     -- git
-    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+    use {
+        'sindrets/diffview.nvim',
+        requires = 'nvim-lua/plenary.nvim'
+    }
+    use {
+        'TimUntersberger/neogit',
+        requires = 'nvim-lua/plenary.nvim'
+    }
     --use { -- not tried this yet, has staging of hunk support though too and looks simpler...
     --    'lewis6991/gitsigns.nvim',
     --    -- tag = 'release' -- To use the latest release
@@ -56,7 +65,7 @@ require('packer').startup(function(use)
     -- Fancy UI stuff
     use {
         'nvim-telescope/telescope.nvim',
-        requires = { { 'nvim-lua/plenary.nvim' } }
+        requires = { { 'nvim-lua/plenary.nvim' } } -- weird syntax, assume I've copied this..?
     }
     use 'nvim-telescope/telescope-file-browser.nvim' --replace nerdtree
     use {
@@ -66,11 +75,13 @@ require('packer').startup(function(use)
     use 'nvim-telescope/telescope-ui-select.nvim'
 
     use 'kyazdani42/nvim-web-devicons'
-    use({
+    use {
         'nvim-lualine/lualine.nvim',
-        --config = function() require('plugins.lualine') end,
-        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-    })
+        requires = {
+            'kyazdani42/nvim-web-devicons',
+            opt = true
+        }
+    }
 
     use 'folke/tokyonight.nvim'
 end)
