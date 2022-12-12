@@ -56,10 +56,11 @@ alias vim=nvim
 alias ls=exa
 alias myip='dig TXT ip.sslip.io @ns.sslip.io +short'
 alias favs='cat ~/.histfile | cut -d" " -f1 | sort | uniq -c | sort -n'
+alias re='r(){ rustc --explain $1 | bat -l rust --theme zenburn }; r' 
 
 # and finally - load the lovely plugins... quickly
-# using Antibody static loading - https://getantibody.github.io/usage/
-# remember to run `antibody bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
+# updated to antidote as antigen is obsolete now.
+# remember to run `antidote bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
 source ~/.zsh_plugins.sh
 
 #source ~/helm_completions.zsh

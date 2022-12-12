@@ -17,14 +17,16 @@ local function describeOptions(desc, options)
     return retVal
 end
 
-map('n', '<leader>sv', ':source $MYVIMRC<CR>', {noremap = true})
+map('n', '<leader>sv', ':source $MYVIMRC<CR>',      {noremap = true})
+map('n', '<leader>pd', ':FZF --reverse ~/dev/<CR>', sOpts)
+map('n', '<leader>ph', ':FZF --reverse ~/<CR>',     sOpts)
 
-map('n', '<A-j>',      ':m .+1<CR>==', {noremap = true})
-map('n', '<A-k>',      ':m .-2<CR>==', {noremap = true})
-map('i', '<A-j>',      ':<Esc>:m .+1<CR>==gi', {noremap = true})
-map('i', '<A-k>',      ':<Esc>:m .-2<CR>==gi', {noremap = true})
-map('v', '<A-j>',      ":m '>+1<CR>gv=gv", {noremap = true})
-map('v', '<A-k>',      ":m '<-2<CR>gv=gv", {noremap = true})
+map('n', '<A-j>',      ':m .+1<CR>==',          {noremap = true})
+map('n', '<A-k>',      ':m .-2<CR>==',          {noremap = true})
+map('i', '<A-j>',      ':<Esc>:m .+1<CR>==gi',  {noremap = true})
+map('i', '<A-k>',      ':<Esc>:m .-2<CR>==gi',  {noremap = true})
+map('v', '<A-j>',      ":m '>+1<CR>gv=gv",      {noremap = true})
+map('v', '<A-k>',      ":m '<-2<CR>gv=gv",      {noremap = true})
 
 -- Telescope
 map('n', '<leader>t',  ":Telescope<cr>",{desc = "Telescope"})
@@ -32,7 +34,7 @@ map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>",
 map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",{desc = "Telescope - Live Grep"})
 map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",{desc = "Telescope - Buffers"})
 map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",{desc = "Telescope - Help Tags"})
-map("n", "<space>fe",  ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer"})
+map("n", "<leader>fe",  ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer"})
 
 -- Trouble
 map("n", "<leader>xx", "<cmd>Trouble<cr>", sOpts)
@@ -40,7 +42,7 @@ map("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", sOpts)
 map("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", sOpts)
 map("n", "<leader>xl", "<cmd>Trouble loclist<cr>", sOpts)
 map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", sOpts)
-map("n", "gR",         "<cmd>Trouble lsp_references<cr>", sOpts)
+map("n", "gl",         "<cmd>Trouble lsp_references<cr>", sOpts)
 
 -- Completions
 local cmp = require('cmp')
@@ -72,6 +74,11 @@ cmp.setup({
     { name = 'nvim_lsp_signature_help' },
   },
 })
+
+-- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
 
 -- Debugging with DAP/rust-tools (when it's working, pfft)
 

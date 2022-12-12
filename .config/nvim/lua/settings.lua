@@ -16,10 +16,10 @@ vim.opt.timeoutlen = 300
 -- override default loading of netrw, use Telescope instead
 -- so disable unused plugins for speed
 local disabled_built_ins = {
-    "netrw",
+    --[[ "netrw",
     "netrwPlugin",
     "netrwSettings",
-    "netrwFileHandlers",
+    "netrwFileHandlers", ]]
     "gzip",
     "zip",
     "zipPlugin",

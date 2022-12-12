@@ -13,16 +13,12 @@ format = """\
   $docker_context\
   $package\
   $dotnet\
-  $elixir\
-  $elm\
   $golang\
   $java\
-  $julia\
   $nodejs\
   $php\
   $python\
   $rust\
-  $terraform\
   $zig\
   $memory_usage\
   $env_var\
@@ -63,12 +59,6 @@ disabled = false
 [docker_context]
 symbol = " "
 
-[elixir]
-symbol = " "
-
-[elm]
-symbol = " "
-
 [git_branch]
 symbol = " "
 
@@ -77,9 +67,6 @@ symbol = " "
 
 [java]
 symbol = " "
-
-[julia]
-symbol = " "
 
 [nodejs]
 symbol = " "
