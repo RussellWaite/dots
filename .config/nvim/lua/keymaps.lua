@@ -21,20 +21,20 @@ map('n', '<leader>sv', ':source $MYVIMRC<CR>',      {noremap = true})
 map('n', '<leader>pd', ':FZF --reverse ~/dev/<CR>', sOpts)
 map('n', '<leader>ph', ':FZF --reverse ~/<CR>',     sOpts)
 
-map('n', '<A-j>',      ':m .+1<CR>==',          {noremap = true})
-map('n', '<A-k>',      ':m .-2<CR>==',          {noremap = true})
-map('i', '<A-j>',      ':<Esc>:m .+1<CR>==gi',  {noremap = true})
-map('i', '<A-k>',      ':<Esc>:m .-2<CR>==gi',  {noremap = true})
-map('v', '<A-j>',      ":m '>+1<CR>gv=gv",      {noremap = true})
-map('v', '<A-k>',      ":m '<-2<CR>gv=gv",      {noremap = true})
+map('n', '<A-j>', ':m .+1<CR>==',        {noremap = true})
+map('n', '<A-k>', ':m .-2<CR>==',        {noremap = true})
+map('i', '<A-j>', '<Esc>:m .+1<CR>==gi', {noremap = true})
+map('i', '<A-k>', '<Esc>:m .-2<CR>==gi', {noremap = true})
+map('v', '<A-j>', ":m '>+1<CR>gv=gv",    {noremap = true})
+map('v', '<A-k>', ":m '<-2<CR>gv=gv",    {noremap = true})
 
 -- Telescope
 map('n', '<leader>t',  ":Telescope<cr>",{desc = "Telescope"})
-map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>",{desc = "Telescope - Find Files"})
-map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",{desc = "Telescope - Live Grep"})
-map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",{desc = "Telescope - Buffers"})
-map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",{desc = "Telescope - Help Tags"})
-map("n", "<leader>fe",  ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer"})
+map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", {desc = "Telescope - Find Files"})
+map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>",  {desc = "Telescope - Live Grep"})
+map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>",    {desc = "Telescope - Buffers"})
+map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>",  {desc = "Telescope - Help Tags"})
+map("n", "<leader>fe", ":Telescope file_browser<CR>",                            { noremap = true, desc = "Telescope - File Explorer"})
 
 -- Trouble
 map("n", "<leader>xx", "<cmd>Trouble<cr>", sOpts)
@@ -45,40 +45,78 @@ map("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", sOpts)
 map("n", "gl",         "<cmd>Trouble lsp_references<cr>", sOpts)
 
 -- Completions
+local kind_icons = {
+  Text = "",
+  Method = "",
+  Function = "",
+  Constructor = "",
+  Field = "",
+  Variable = "",
+  Class = "ﴯ",
+  Interface = "",
+  Module = "",
+  Property = "ﰠ",
+  Unit = "",
+  Value = "",
+  Enum = "",
+  Keyword = "",
+  Snippet = "",
+  Color = "",
+  File = "",
+  Reference = "",
+  Folder = "",
+  EnumMember = "",
+  Constant = "",
+  Struct = "",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
 local cmp = require('cmp')
 cmp.setup({
-  snippet = {
-    expand = function(args)
-        require('snippy').expand_snippet(args.body)
-    end,
+  formatting = {
+    format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      -- Source
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        snippy = "[Snippy]",
+        nvim_lua = "[Lua]",
+      })[entry.source.name]
+      return vim_item
+    end
   },
   mapping = {
-    ['<C-p>'] = cmp.mapping.select_prev_item(),
-    ['<C-n>'] = cmp.mapping.select_next_item(),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-p>']     = cmp.mapping.select_prev_item(),
+    ['<C-n>']     = cmp.mapping.select_next_item(),
+    ['<S-Tab>']   = cmp.mapping.select_prev_item(),
+    ['<Tab>']     = cmp.mapping.select_next_item(),
+    ['<C-b>']     = cmp.mapping.scroll_docs(-4),
+    ['<C-f>']     = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({
+    ['<C-e>']     = cmp.mapping.close(),
+    ['<CR>']      = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Insert,
       select = true,
     })
   },
+  snippet = {
+      expand = function(args)
+          require('snippy').expand_snippet(args.body)
+      end,
+  },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'snippy' },
+    -- { name = snippy' },
     { name = 'path' },
-    { name = 'buffer' },
+    -- { name = 'buffer' },
     { name = 'nvim_lsp_signature_help' },
   },
 })
 
--- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 -- Debugging with DAP/rust-tools (when it's working, pfft)
 
@@ -98,25 +136,24 @@ map("n", "<leader>bl",      "<Cmd>lua require'dap'.run_last()<CR>",  describeOpt
 map("n", "<leader>bT",      "<Cmd>lua require'dap'.terminate()<CR>", describeOptions("Terminate", sOpts))
 map("n", "<leader>bD",      "<Cmd>lua require'dap'.disconnect()<CR> require'dap'.close()<CR>", describeOptions("Disconnect & Close", sOpts))
 
-map("n", "<leader>bt",      "<Cmd>lua require'dapui'.toggle()<CR>", describeOptions("Toggle UI", sOpts))
+map("n", "<leader>bt", "<Cmd>lua require'dapui'.toggle()<CR>", describeOptions("Toggle UI", sOpts))
+map("n", "<leader>be", "<Cmd>lua require'dapui'.eval()<CR>",   describeOptions("Evaluate under cursor", sOpts))
 
-
-map("n", "<leader>ggdo",     "<Cmd>DiffviewOpen<CR>", describeOptions("Open Diff", sOpts))
-map("n", "<leader>ggdc",     "<Cmd>DiffviewClose<CR>", describeOptions("Close Diff", sOpts))
-map("n", "<leader>ggdh",     "<Cmd>DiffviewFileHistory<CR>", describeOptions("File History", sOpts))
-map("n", "<leader>ggdf",     "<Cmd>DiffviewFocusFiles<CR>", describeOptions("Focus Files", sOpts))
-map("n", "<leader>ggdr",     "<Cmd>DiffviewRefresh<CR>", describeOptions("Refresh Diff", sOpts))
+map("n", "<leader>ggdo", "<Cmd>DiffviewOpen<CR>",        describeOptions("Open Diff", sOpts))
+map("n", "<leader>ggdc", "<Cmd>DiffviewClose<CR>",       describeOptions("Close Diff", sOpts))
+map("n", "<leader>ggdh", "<Cmd>DiffviewFileHistory<CR>", describeOptions("File History", sOpts))
+map("n", "<leader>ggdf", "<Cmd>DiffviewFocusFiles<CR>",  describeOptions("Focus Files", sOpts))
+map("n", "<leader>ggdr", "<Cmd>DiffviewRefresh<CR>",     describeOptions("Refresh Diff", sOpts))
 
 -- TODO: THESE LOOK BROKEN - FIX OR DISCARD!
 
-map("n", "<leader>gc",         "<cmd>lua vim.lsp.buf.incoming_calls()<CR>", sOpts)
-map("n", "<leader>gs",         "<cmd>lua vim.lsp.buf.document_symbol()<CR>", sOpts)
-map("n", "<leader>gw",         "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", sOpts)
-
+map("n", "<leader>gc", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",   sOpts)
+map("n", "<leader>gs", "<cmd>lua vim.lsp.buf.document_symbol()<CR>",  sOpts)
+map("n", "<leader>gw", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", sOpts)
 
 -- Replaced LSP implementation with code action plugin...
-map("n", "<leader>ga",         "<cmd>CodeActionMenu<CR>", sOpts)
-map("n", "[x",         "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
-map("n", "]x",         "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
-map("n", "]s",         "<cmd>lua vim.diagnostic.show()<CR>", sOpts)
+map("n", "[x",  "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
+map("n", "]x",  "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
+map("n", "]gs", "<cmd>lua vim.diagnostic.show()<CR>",      sOpts)
+map("n", "]ga", "<cmd>lua vim.lsp.buf.code_action()<CR>",  sOpts)
 

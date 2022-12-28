@@ -16,10 +16,11 @@ require('packer').startup(function(use)
     -- completion engine
     use 'hrsh7th/nvim-cmp'
     use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
+    -- use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-path'
     use 'hrsh7th/cmp-cmdline'
 
+    use 'nvim-lua/lsp-status.nvim'
     -- snippets
     use 'dcampos/nvim-snippy'
     use 'dcampos/cmp-snippy'
