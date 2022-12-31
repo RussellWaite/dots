@@ -9,27 +9,39 @@ require("dapui").setup({
     repl = "r",
     toggle = "t",
   },
-  -- Expand lines larger than the window
-  -- Requires >= 0.7
-  expand_lines = vim.fn.has("nvim-0.7"),
-  layout = {
+  expand_lines = true,
+  layouts = {
     {
       elements = {
-        { id = 'scopes',      size = 0.5  },
-        { id = 'breakpoints', size = 0.15 },
-        { id = 'stacks',      size = 0.2  },
-        -- { id = 'watches',     size = 0.15 }
+        { id = "scopes",      size = 0.5  },
+        { id = "breakpoints", size = 0.15 },
+        { id = "stacks",      size = 0.2  },
+        -- { id = "watches",     size = 0.15 }
       },
-      size = 80,
-      position = 'left',
+      size = 70,
+      position = "left",
     },
     {
       elements = {
-          { id = 'repl',    size = 0.65},
-          -- { id = 'console', size = 0.35},
+          { id = "repl",    size = 0.65},
+          { id = "console", size = 0.35},
       },
       size = 20,
-      position = 'bottom',
+      position = "bottom",
+    },
+  },
+  controls = {
+    enabled = true,
+    element = "repl",
+    icons = {
+      pause = "",
+      play = "",
+      step_into = "",
+      step_over = "",
+      step_out = "",
+      step_back = "",
+      run_last = "",
+      terminate = "",
     },
   },
   floating = {
@@ -45,3 +57,5 @@ require("dapui").setup({
     max_type_length = nil, -- Can be integer or nil.
   }
 })
+
+print("dapui.lua was actually loaded at least")

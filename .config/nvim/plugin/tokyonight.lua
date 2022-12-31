@@ -7,8 +7,8 @@ vim.g.tokyonight_terminal_colors = false
 vim.g.tokyonight_colors = { hint = "orange", error = "#ff0000" }
 
 -- Load the colorscheme
-vim.cmd[[colorscheme tokyonight]]
+vim.cmd[[colorscheme tokyonight-night]]
 
 -- make background use terminal's transparent settings
-vim.cmd[[highlight Normal guibg=none]]
-vim.cmd[[highlight NonText guibg=none]]
+-- vim.cmd[[highlight Normal guibg=none]]
+-- vim.cmd[[highlight NonText guibg=none]]

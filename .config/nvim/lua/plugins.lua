@@ -10,6 +10,8 @@ require('packer').startup(function(use)
         run = ':TSUpdate'
     }
     use 'romgrk/nvim-treesitter-context'
+    use 'nvim-treesitter/nvim-treesitter-textobjects'
+    use 'p00f/nvim-ts-rainbow'
 
     use 'neovim/nvim-lspconfig'
 
@@ -31,7 +33,7 @@ require('packer').startup(function(use)
 
     -- Debugging
     use 'nvim-lua/plenary.nvim'
-    use 'mfussenegger/nvim-dap'
+    -- use 'mfussenegger/nvim-dap'
     use {
         "rcarriga/nvim-dap-ui",
         requires = "mfussenegger/nvim-dap"
@@ -85,4 +87,5 @@ require('packer').startup(function(use)
     }
 
     use 'folke/tokyonight.nvim'
+    use 'nyoom-engineering/oxocarbon.nvim'
 end)
