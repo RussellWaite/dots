@@ -11,7 +11,6 @@ require('packer').startup(function(use)
     }
     use 'romgrk/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-    use 'p00f/nvim-ts-rainbow'
 
     use 'neovim/nvim-lspconfig'
 

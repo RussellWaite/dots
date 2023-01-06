@@ -57,6 +57,8 @@ alias ls=exa
 alias myip='dig TXT ip.sslip.io @ns.sslip.io +short'
 alias favs='cat ~/.histfile | cut -d" " -f1 | sort | uniq -c | sort -n'
 alias re='r(){ rustc --explain $1 | bat -l rust --theme zenburn }; r' 
+alias heat='watch -n 2 sensors'
+alias cpu='watch -n 2 "cat /proc/cpuinfo | grep MHz"'
 
 # and finally - load the lovely plugins... quickly
 # updated to antidote as antigen is obsolete now.
