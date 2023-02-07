@@ -30,6 +30,7 @@ pathadd ~/.cargo/bin
 pathadd ~/.dotnet/tools
 pathadd ~/.local/bin
 pathadd /usr/share/bcc/tools
+pathadd /opt/flutter/bin
 export EDITOR=nvim
 
 # setup expected defaults for ohmyzsh based plugins (kubectl for completion)
@@ -41,8 +42,23 @@ if [[ -z "$ZSH_CACHE_DIR" ]]; then
 fi
 mkdir -p $ZSH_CACHE_DIR
 
+if [[ "$IS_ALACRITTY" == "indeed" ]]; then
+    if [[ -z "$ZELLIJ" ]]; then
+        if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
+            zellij attach -c
+        else
+            zellij
+        fi
+
+        if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
+            exit
+        fi
+    fi
+else
+    # kitty should be other - gnome terminal will cope
+    export TERM="xterm-kitty"
+fi
 # find out how we got 256 colours - multiple strategies are used... chrissicool/zsh-256color
-export TERM="xterm-kitty"
 
 eval "$(starship init zsh)"
 
@@ -59,13 +75,12 @@ alias favs='cat ~/.histfile | cut -d" " -f1 | sort | uniq -c | sort -n'
 alias re='r(){ rustc --explain $1 | bat -l rust --theme zenburn }; r' 
 alias heat='watch -n 2 sensors'
 alias cpu='watch -n 2 "cat /proc/cpuinfo | grep MHz"'
+alias update_anitdote_plugins=' cd ~/.cache/antidote && ls  | xargs -I % echo "cd ~/.cache/antidote/% && git pull;" | sh'
 
 # and finally - load the lovely plugins... quickly
 # updated to antidote as antigen is obsolete now.
 # remember to run `antidote bundle < .zsh_plugins.txt > .zsh_plugins.sh` when you update your plugins
 source ~/.zsh_plugins.sh
-
-#source ~/helm_completions.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
