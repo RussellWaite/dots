@@ -42,24 +42,6 @@ if [[ -z "$ZSH_CACHE_DIR" ]]; then
 fi
 mkdir -p $ZSH_CACHE_DIR
 
-if [[ "$IS_ALACRITTY" == "indeed" ]]; then
-    if [[ -z "$ZELLIJ" ]]; then
-        if [[ "$ZELLIJ_AUTO_ATTACH" == "true" ]]; then
-            zellij attach -c
-        else
-            zellij
-        fi
-
-        if [[ "$ZELLIJ_AUTO_EXIT" == "true" ]]; then
-            exit
-        fi
-    fi
-else
-    # kitty should be other - gnome terminal will cope
-    export TERM="xterm-kitty"
-fi
-# find out how we got 256 colours - multiple strategies are used... chrissicool/zsh-256color
-
 eval "$(starship init zsh)"
 
 alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
@@ -76,6 +58,8 @@ alias re='r(){ rustc --explain $1 | bat -l rust --theme zenburn }; r'
 alias heat='watch -n 2 sensors'
 alias cpu='watch -n 2 "cat /proc/cpuinfo | grep MHz"'
 alias update_anitdote_plugins=' cd ~/.cache/antidote && ls  | xargs -I % echo "cd ~/.cache/antidote/% && git pull;" | sh'
+alias pycode='code --enable-proposed-api ms-toolsai.jupyter'
+alias prcode="code --enable-proposed-api GitHub.vscode-pull-request-github"
 
 # and finally - load the lovely plugins... quickly
 # updated to antidote as antigen is obsolete now.
@@ -116,3 +100,19 @@ alias luamake=/home/user6/dev/lua/lua-language-server/3rd/luamake/luamake
 
 # opam configuration
 [[ ! -r /home/user6/.opam/opam-init/init.zsh ]] || source /home/user6/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+        . "/usr/etc/profile.d/conda.sh"
+    else
+        export PATH="/usr/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
