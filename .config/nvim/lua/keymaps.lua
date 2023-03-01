@@ -145,6 +145,7 @@ map("n", "<leader>ggdh", "<Cmd>DiffviewFileHistory<CR>", describeOptions("File H
 map("n", "<leader>ggdf", "<Cmd>DiffviewFocusFiles<CR>",  describeOptions("Focus Files", sOpts))
 map("n", "<leader>ggdr", "<Cmd>DiffviewRefresh<CR>",     describeOptions("Refresh Diff", sOpts))
 
+map("n", "<leader>rf", "<Cmd>lua vim.lsp.buf.format()<CR>",     describeOptions("Format Code", sOpts))
 -- TODO: THESE LOOK BROKEN - FIX OR DISCARD!
 
 map("n", "<leader>gc", "<cmd>lua vim.lsp.buf.incoming_calls()<CR>",   sOpts)

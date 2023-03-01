@@ -11,9 +11,12 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
+vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
+vim.api.nvim_create_user_command('LspFmt', 'lua vim.lsp.buf.format()', {})
+
 ---- GO LSP
-nvim_lsp.gopls.setup{
-    cmd = {'gopls'},
+nvim_lsp.gopls.setup {
+    cmd = { 'gopls' },
     -- for postfix snippets and analyzers
     capabilities = capabilities,
     settings = {
@@ -61,7 +64,7 @@ end
 
 --vim.lsp.set_log_level("debug")
 
-vim.cmd[[
+vim.cmd [[
 autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
 autocmd BufWritePre *.go lua goimports(1000)
 ]]
@@ -71,7 +74,7 @@ autocmd BufWritePre *.go lua goimports(1000)
 ---- LUA LSP
 
 --require'lspconfig'.sumneko_lua.setup{}
-require'lspconfig'.sumneko_lua.setup {
+require 'lspconfig'.sumneko_lua.setup {
     settings = {
         Lua = {
             runtime = {
@@ -80,7 +83,7 @@ require'lspconfig'.sumneko_lua.setup {
             },
             diagnostics = {
                 -- Get the language server to recognize the `vim` global
-                globals = {'vim'},
+                globals = { 'vim' },
             },
             workspace = {
                 -- Make the server aware of Neovim runtime files
@@ -93,7 +96,20 @@ require'lspconfig'.sumneko_lua.setup {
         },
     },
 }
+
+require 'lspconfig'.pylsp.setup {
+    settings = {
+        pylsp = {
+            plugins = {
+                pycodestyle = {
+                    ignore = { 'W391' },
+                    maxLineLength = 100
+                }
+            }
+        }
+    }
+}
 ---- // LUA LSP
 ---- // OCAML LSP
-require'lspconfig'.ocamllsp.setup{}
+require 'lspconfig'.ocamllsp.setup {}
 ---- // OCAML LSP
