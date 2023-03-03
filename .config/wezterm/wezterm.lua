@@ -31,7 +31,7 @@ local function recompute_padding(window)
     window:set_config_overrides(overrides)
 end
 
-wezterm.on('window-resized', function(window, pane)
+wezterm.on('window-resized', function(window, _pane)
     recompute_padding(window)
 end)
 
@@ -40,7 +40,10 @@ wezterm.on('window-config-reloaded', function(window)
 end)
 
 return {
-    font = wezterm.font 'Iosevka Nerd Font, Heavy',
+    -- `wezterm ls-fonts --list-system | grep Iosevka | grep Heavy`
+    font = wezterm.font('JetBrainsMono Nerd Font', { weight = 'Regular' }),
+    font_size = 14,
+    bold_brightens_ansi_colors = true,
     -- disable ligatures
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
     -- color_scheme = "Tinacious Design (Dark)",
