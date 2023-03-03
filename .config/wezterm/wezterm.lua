@@ -69,5 +69,25 @@ return {
                 one_shot = false,
             },
         },
+    },
+    colors = {
+        tab_bar = {
+            -- The color of the strip that goes along the top of the window
+            background = '#0b0022',
+            active_tab = {
+                bg_color = '#663399',
+                fg_color = '#c0c0c0',
+                -- Specify whether you want "Half", "Normal"* or "Bold" intensity
+                intensity = 'Bold',
+            },
+            inactive_tab = {
+                bg_color = '#22073d',
+                fg_color = '#808080',
+            },
+            new_tab = {
+                bg_color = '#32174d',
+                fg_color = '#c0c0c0',
+            },
+        }
     }
 }
