@@ -1,6 +1,7 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
-
+local default_tab_bg = '#0b0022'
+local override_bg = '#4b0022'
 
 local function recompute_padding(window)
     local window_dims = window:get_dimensions()
@@ -39,8 +40,20 @@ wezterm.on('window-config-reloaded', function(window)
     recompute_padding(window)
 end)
 
+wezterm.on('update-right-status', function(window, pane)
+    local name = ''
+    if window:active_key_table() == 'wezterm_unlocked' then
+        name = wezterm.format(
+            {
+                { Foreground = { Color = '#ffffff' } },
+                { Background = { Color = override_bg } },
+                { Text = ' KEY OVERRIDE ENABLED' },
+            })
+    end
+    window:set_right_status(name)
+end)
+
 return {
-    -- `wezterm ls-fonts --list-system | grep Iosevka | grep Heavy`
     font = wezterm.font('JetBrainsMono Nerd Font', { weight = 'Regular' }),
     font_size = 14,
     bold_brightens_ansi_colors = true,
@@ -67,13 +80,22 @@ return {
             action = act.ActivateKeyTable {
                 name = 'wezterm_unlocked',
                 one_shot = false,
+                replace_current = true,
+            }
+        },
+    },
+    key_tables = {
+        wezterm_unlocked = {
+            {
+                key = 'F12',
+                action = 'PopKeyTable'
             },
         },
     },
     colors = {
         tab_bar = {
             -- The color of the strip that goes along the top of the window
-            background = '#0b0022',
+            background = default_tab_bg,
             active_tab = {
                 bg_color = '#663399',
                 fg_color = '#c0c0c0',
