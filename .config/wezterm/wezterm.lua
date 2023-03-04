@@ -3,6 +3,9 @@ local act = wezterm.action
 local default_tab_bg = '#0b0022'
 local override_bg = '#4b0022'
 
+local keyboard_icon = utf8.char(0xea65)
+local terminal_icon = utf8.char(0xf489)
+
 local function recompute_padding(window)
     local window_dims = window:get_dimensions()
     local overrides = window:get_config_overrides() or {}
@@ -47,7 +50,7 @@ wezterm.on('update-right-status', function(window, pane)
             {
                 { Foreground = { Color = '#ffffff' } },
                 { Background = { Color = override_bg } },
-                { Text = ' KEY OVERRIDE ENABLED' },
+                { Text = ' ' .. terminal_icon .. ' ' .. keyboard_icon .. ' ' },
             })
     end
     window:set_right_status(name)
@@ -74,6 +77,7 @@ return {
         top = '0.5cell',
         bottom = '0.5cell',
     },
+    disable_default_key_bindings = true,
     keys = {
         {
             key = 'F12',
@@ -83,6 +87,16 @@ return {
                 replace_current = true,
             }
         },
+        {
+            key = 'c',
+            mods = 'CTRL|SHIFT',
+            action = act.CopyTo 'Clipboard',
+        },
+        {
+            key = 'v',
+            mods = 'CTRL|SHIFT',
+            action = act.PasteFrom 'Clipboard',
+        },
     },
     key_tables = {
         wezterm_unlocked = {
@@ -91,17 +105,13 @@ return {
                 action = 'PopKeyTable'
             },
             {
-                key = 'Escape',
-                action = 'PopKeyTable'
-            },
-            {
                 key = '|',
-                mods = 'CTRL',
+                mods = 'CTRL|SHIFT',
                 action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
             },
             {
                 key = '-',
-                mods = 'CTRL',
+                mods = 'CTRL|SHIFT',
                 action = act.SplitVertical { domain = 'CurrentPaneDomain' },
             },
             {
@@ -124,6 +134,102 @@ return {
                 mods = 'SUPER',
                 action = act.SpawnTab 'DefaultDomain',
             },
+            {
+                key = 'Enter',
+                mods = 'ALT',
+                action = act.ToggleFullScreen,
+            },
+            {
+                key = '0',
+                mods = 'CTRL',
+                action = act.ResetFontSize,
+            },
+            {
+                key = '-',
+                mods = 'CTRL',
+                action = act.DecreaseFontSize,
+            },
+            {
+                key = '=',
+                mods = 'CTRL',
+                action = act.IncreaseFontSize,
+            },
+            {
+                key = 'n',
+                mods = 'CTRL',
+                action = act.SpawnWindow,
+            },
+            {
+                key = 'c',
+                mods = 'CTRL|SHIFT',
+                action = act.CopyTo 'Clipboard',
+            },
+            {
+                key = 'v',
+                mods = 'CTRL|SHIFT',
+                action = act.PasteFrom 'Clipboard',
+            },
+            {
+                key = 'r',
+                mods = 'CTRL|SHIFT',
+                action = act.ReloadConfiguration,
+            },
+            {
+                key = 'l',
+                mods = 'CTRL|SHIFT',
+                action = act.ShowDebugOverlay,
+            },
+            {
+                key = 'Space',
+                mods = 'CTRL|SHIFT',
+                action = act.QuickSelect,
+            },
+            {
+                key = 'LeftArrow',
+                mods = 'ALT',
+                action = act.ActivatePaneDirection 'Left',
+            },
+            {
+                key = 'RightArrow',
+                mods = 'ALT',
+                action = act.ActivatePaneDirection 'Right',
+            },
+            {
+                key = 'UpArrow',
+                mods = 'ALT',
+                action = act.ActivatePaneDirection 'Up',
+            },
+            {
+                key = 'DownArrow',
+                mods = 'ALT',
+                action = act.ActivatePaneDirection 'Down',
+            },
+            {
+                key = 'LeftArrow',
+                mods = 'ALT|SHIFT',
+                action = act.AdjustPaneSize { 'Left', 1 }
+            },
+            {
+                key = 'RightArrow',
+                mods = 'ALT|SHIFT',
+                action = act.AdjustPaneSize { 'Right', 1 }
+            },
+            {
+                key = 'UpArrow',
+                mods = 'ALT|SHIFT',
+                action = act.AdjustPaneSize { 'Up', 1 }
+            },
+            {
+                key = 'DownArrow',
+                mods = 'ALT|SHIFT',
+                action = act.AdjustPaneSize { 'Down', 1 }
+            },
+            {
+                key = 'z',
+                mods = 'CTRL|SHIFT',
+                action = act.TogglePaneZoomState
+            },
+
         },
     },
     colors = {
@@ -145,5 +251,6 @@ return {
                 fg_color = '#c0c0c0',
             },
         }
-    }
+    },
 }
+
