@@ -90,6 +90,40 @@ return {
                 key = 'F12',
                 action = 'PopKeyTable'
             },
+            {
+                key = 'Escape',
+                action = 'PopKeyTable'
+            },
+            {
+                key = '|',
+                mods = 'CTRL',
+                action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
+            },
+            {
+                key = '-',
+                mods = 'CTRL',
+                action = act.SplitVertical { domain = 'CurrentPaneDomain' },
+            },
+            {
+                key = 'LeftArrow',
+                mods = 'CTRL',
+                action = act.ActivateTabRelative(-1),
+            },
+            {
+                key = 'RightArrow',
+                mods = 'CTRL',
+                action = act.ActivateTabRelative(1),
+            },
+            {
+                key = 't',
+                mods = 'CTRL',
+                action = act.SpawnTab 'CurrentPaneDomain',
+            },
+            {
+                key = 't',
+                mods = 'SUPER',
+                action = act.SpawnTab 'DefaultDomain',
+            },
         },
     },
     colors = {
