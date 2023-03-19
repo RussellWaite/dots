@@ -74,7 +74,7 @@ autocmd BufWritePre *.go lua goimports(1000)
 ---- LUA LSP
 
 --require'lspconfig'.sumneko_lua.setup{}
-require 'lspconfig'.sumneko_lua.setup {
+require 'lspconfig'.lua_ls.setup {
     settings = {
         Lua = {
             runtime = {
