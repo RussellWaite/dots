@@ -1,0 +1,54 @@
+[colors]
+ansi = [
+    '#000000',
+    '#fc2f52',
+    '#25a45c',
+    '#eecc6c',
+    '#3476ff',
+    '#bb136a',
+    '#4483aa',
+    '#cdd4e0',
+]
+background = '#1a1b26'
+brights = [
+    '#8f9aae',
+    '#ff6480',
+    '#3fc56b',
+    '#feff00',
+    '#10b1fe',
+    '#ff78f8',
+    '#5fb9bc',
+    '#ffffff',
+]
+
+# nice and visible yellow cursor
+cursor_bg = '#ffcc00'
+cursor_border = '#ffcc00'
+cursor_fg = '#282c34'
+foreground = '#b9c0cb'
+selection_bg = '#ffcc00'
+selection_fg = '#000000'
+
+# -- Since: 20220319-142410-0fcdea07
+# -- When the IME, a dead key or a leader key are being processed and are effectively
+# -- holding input pending the result of input composition, change the cursor
+# -- to this color to give a visual cue about the compose state.
+compose_cursor = 'orange'
+
+copy_mode_active_highlight_bg = { Color = '#ff0000' }
+copy_mode_active_highlight_fg = { Color = '41444d' }
+copy_mode_inactive_highlight_bg = { Color = '#ff0000' }
+copy_mode_inactive_highlight_fg = { Color = 'White' }
+# #
+quick_select_label_bg = { Color = 'peru' }
+quick_select_label_fg = { Color = '#ffffff' }
+quick_select_match_bg = { AnsiColor = 'Navy' }
+quick_select_match_fg = { Color = '#ffffff' }
+#
+# [colors.indexed]
+# # Arbitrary colors of the palette in the range from 16 to 255
+# indexed = { [136] = '#af8700' }
+
+[metadata]
+name = 'Nesimir'
+

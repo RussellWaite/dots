@@ -50,7 +50,7 @@ wezterm.on('update-right-status', function(window, pane)
             {
                 { Foreground = { Color = '#ffffff' } },
                 { Background = { Color = override_bg } },
-                { Text = ' ' .. terminal_icon .. ' ' .. keyboard_icon .. ' ' },
+                { Text = ' ' .. terminal_icon .. ' ' },
             })
     end
     window:set_right_status(name)
@@ -62,11 +62,13 @@ return {
     bold_brightens_ansi_colors = true,
     -- disable ligatures
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+    color_scheme_dirs = { '~/.config/wezterm/colors/' },
     -- color_scheme = "Tinacious Design (Dark)",
     -- color_scheme = "Andromeda",
     -- color_scheme = "Apple Classic", --nightly only
     -- color_scheme = "Atlas (base16)",
-    color_scheme = "Atom",
+    -- color_scheme = "Calamity",
+    color_scheme = 'Nesimir',
     use_fancy_tab_bar = false,
     enable_tab_bar = true,
     hide_tab_bar_if_only_one_tab = false,
@@ -77,6 +79,7 @@ return {
         top = '0.5cell',
         bottom = '0.5cell',
     },
+    hide_mouse_cursor_when_typing = false,
     disable_default_key_bindings = true,
     keys = {
         {
@@ -96,6 +99,16 @@ return {
             key = 'v',
             mods = 'CTRL|SHIFT',
             action = act.PasteFrom 'Clipboard',
+        },
+        {
+            key = 'P',
+            mods = 'CTRL',
+            action = wezterm.action.ActivateCommandPalette,
+        },
+        {
+            key = 'X',
+            mods = 'CTRL',
+            action = wezterm.action.ActivateCopyMode,
         },
     },
     key_tables = {
@@ -229,7 +242,6 @@ return {
                 mods = 'CTRL|SHIFT',
                 action = act.TogglePaneZoomState
             },
-
         },
     },
     colors = {
@@ -253,4 +265,3 @@ return {
         }
     },
 }
-

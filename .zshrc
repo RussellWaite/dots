@@ -44,7 +44,7 @@ mkdir -p $ZSH_CACHE_DIR
 
 eval "$(starship init zsh)"
 
-alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolor%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
+alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolour%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
 alias lsx='exa -lhaTR --git'
 alias start_i3='XDG_SESSION_TYPE=wayland dbus-run-session i3'
 alias start_gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
@@ -94,25 +94,25 @@ setopt HIST_IGNORE_SPACE
 
 ## profile zsh startup (2/2)
 # zprof
-if [ -e /home/user6/.nix-profile/etc/profile.d/nix.sh ]; then . /home/user6/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# if [ -e /home/user6/.nix-profile/etc/profile.d/nix.sh ]; then . /home/user6/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 alias luamake=/home/user6/dev/lua/lua-language-server/3rd/luamake/luamake
 
 # opam configuration
-[[ ! -r /home/user6/.opam/opam-init/init.zsh ]] || source /home/user6/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+# [[ ! -r /home/user6/.opam/opam-init/init.zsh ]] || source /home/user6/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/usr/etc/profile.d/conda.sh" ]; then
-        . "/usr/etc/profile.d/conda.sh"
-    else
-        export PATH="/usr/bin:$PATH"
-    fi
-fi
-unset __conda_setup
+# __conda_setup="$('/usr/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/usr/etc/profile.d/conda.sh" ]; then
+#         . "/usr/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/usr/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
 # <<< conda initialize <<<
 
