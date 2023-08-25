@@ -17,6 +17,14 @@ local function describeOptions(desc, options)
     return retVal
 end
 
+map('n', '<space>ss', "<cmd>lua require('sg.extensions.telescope').fuzzy_search_results()<cr>",
+    { desc = "Sourcegraph search" })
+map('v', '<space>se', ":CodyExplain<cr>", { desc = "Explain how to use Cody" })
+map('v', '<space>sa', ":CodyAsk ", { desc = "Ask a question about the current selection." })
+map('n', '<space>sc', ":CodyChat<cr>", { desc = "State a new Cody chat" })
+map('n', '<space>st', ":CodyToggle<cr>", { desc = "Toggles Cody chat" })
+map('n', '<space>sh', ":CodyHistory<cr>", { desc = "Cody History" })
+
 map('n', '<leader>sv', ':source $MYVIMRC<CR>', { noremap = true })
 map('n', '<leader>pd', ':FZF --reverse ~/dev/<CR>', sOpts)
 map('n', '<leader>ph', ':FZF --reverse ~/<CR>', sOpts)
@@ -89,7 +97,9 @@ cmp.setup({
         end
     },
     mapping = {
+        ['<Up>']      = cmp.mapping.select_prev_item(),
         ['<C-p>']     = cmp.mapping.select_prev_item(),
+        ['<Down>']    = cmp.mapping.select_next_item(),
         ['<C-n>']     = cmp.mapping.select_next_item(),
         ['<S-Tab>']   = cmp.mapping.select_prev_item(),
         ['<Tab>']     = cmp.mapping.select_next_item(),
@@ -109,7 +119,7 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
-        -- { name = snippy' },
+        { name = 'snippy' },
         { name = 'path' },
         -- { name = 'buffer' },
         { name = 'nvim_lsp_signature_help' },

@@ -12,12 +12,13 @@ function rust_on_attach(client, bufnr)
     lsp_on_attach(client, bufnr)
 
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
     local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
     buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
     -- Mappings.
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap = true, silent = true }
 
     -- rust-tools actions
     buf_set_keymap('n', '<leader>rh', '<cmd>:RustHoverActions<cr>', opts)
@@ -65,18 +66,14 @@ local opts = {
                     importPrefix = "crate"
                 },
                 cargo = {
-                    allFeatures = true
+                    allFeatures = true,
+                    buildScripts = {
+                        enable = true,
+                    },
                 },
                 checkOnSave = {
                     -- default: `cargo check`
                     command = "clippy"
-                },
-                inlayHints = {
-                    locationLinks = false,
-                    lifetimeElisionHints = {
-                        enable = "always",
-                        useParameterNames = true
-                    },
                 },
                 hover = {
                     actions = {
@@ -85,9 +82,21 @@ local opts = {
                         },
                     },
                 },
+                inlayHints = {
+                    locationLinks = false,
+                    lifetimeElisionHints = {
+                        enable = "always",
+                        useParameterNames = true
+                    },
+                },
                 lens = {
                     enable = true,
 
+                },
+                semanticHighlighting = {
+                    nonStandardTokens = {
+                        enable = true
+                    }
                 },
             },
         }
@@ -97,4 +106,3 @@ local opts = {
     },
 }
 rt.setup(opts)
-

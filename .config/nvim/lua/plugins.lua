@@ -11,8 +11,10 @@ require('packer').startup(function(use)
     }
     use 'romgrk/nvim-treesitter-context'
     use 'nvim-treesitter/nvim-treesitter-textobjects'
-
+    -- could also use 'mizlan/iswap.nvim' for swapping items, more options than textobjects
+    use 'nvim-treesitter/playground'
     use 'neovim/nvim-lspconfig'
+    use 'Hoffs/omnisharp-extended-lsp.nvim'
 
     -- completion engine
     use 'hrsh7th/nvim-cmp'
@@ -22,9 +24,12 @@ require('packer').startup(function(use)
     use 'hrsh7th/cmp-cmdline'
 
     use 'nvim-lua/lsp-status.nvim'
-    -- snippets
+
+    -- snippets manager
     use 'dcampos/nvim-snippy'
+    -- snippets completion
     use 'dcampos/cmp-snippy'
+    -- snippets source
     use 'honza/vim-snippets' -- TODO: this needs to be tested as it might be easier to grab the snippets I need into files for snippy and dump this plugin (don't want 500 different language snippets being loaded into memory when I could just use a custo cuatd list and a comment reminding me how to get more for new language X in the future...
 
     -- terminal
@@ -84,6 +89,19 @@ require('packer').startup(function(use)
         }
     }
 
+    -- use '~/.config/nvim/localplugins/dockeddocs'
+    use '~/dev/lua/rwplugin/'
+
     use 'folke/tokyonight.nvim'
-    use 'nyoom-engineering/oxocarbon.nvim'
+    use 'Shatur/neovim-ayu'
+    use 'rebelot/kanagawa.nvim'
+
+    -- AI
+    use {
+        'sourcegraph/sg.nvim',
+        run = 'nvim -l build/init.lua',
+        requires = {
+            'nvim-telescope/telescope.nvim'
+        }
+    }
 end)
