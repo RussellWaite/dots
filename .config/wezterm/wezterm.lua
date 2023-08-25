@@ -58,7 +58,7 @@ end)
 
 return {
     font = wezterm.font('JetBrainsMono Nerd Font', { weight = 'Regular' }),
-    font_size = 14,
+    font_size = 12,
     bold_brightens_ansi_colors = true,
     -- disable ligatures
     harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
@@ -123,7 +123,7 @@ return {
                 action = act.SplitHorizontal { domain = 'CurrentPaneDomain' },
             },
             {
-                key = '-',
+                key = '_',
                 mods = 'CTRL|SHIFT',
                 action = act.SplitVertical { domain = 'CurrentPaneDomain' },
             },
@@ -241,6 +241,21 @@ return {
                 key = 'z',
                 mods = 'CTRL|SHIFT',
                 action = act.TogglePaneZoomState
+            },
+            {
+                key = 'E',
+                mods = 'CTRL|SHIFT',
+                action = act.PromptInputLine {
+                description = 'Enter new name for tab',
+                action = wezterm.action_callback(function(window, pane, line)
+                    -- line will be `nil` if they hit escape without entering anything
+                    -- An empty string if they just hit enter
+                    -- Or the actual line of text they wrote
+                    if line then
+                    window:active_tab():set_title(line)
+                    end
+                end),
+                },
             },
         },
     },
