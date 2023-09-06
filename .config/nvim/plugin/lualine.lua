@@ -58,7 +58,19 @@ require('lualine').setup({
             },
             { function() return require 'lsp-status'.status() end },
         },
-        lualine_x = { 'filename', 'encoding' },
+        lualine_x = {
+            {
+                'filename',
+                path = 4, -- 0 name only, 1 rel path, 2 abs path, 3 abs but ~ home, 4 name + parent inc ~
+                symbols = {
+                    modified = '[+]', -- Text to show when the file is modified.
+                    readonly = '[-]', -- Text to show when the file is non-modifiable or readonly.
+                    unnamed = '[No Name]', -- Text to show for unnamed buffers.
+                    newfile = '[New]', -- Text to show for newly created file before first write
+                }
+            },
+            'encoding'
+        },
         lualine_y = { 'progress' },
         -- lualine_z = {
         --   {function () return '' end},

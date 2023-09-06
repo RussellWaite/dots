@@ -15,23 +15,42 @@ vim.cmd [[autocmd BufWritePre * lua vim.lsp.buf.format()]]
 vim.api.nvim_create_user_command('LspFmt', 'lua vim.lsp.buf.format()', {})
 
 ---- GO LSP
-nvim_lsp.gopls.setup {
-    cmd = { 'gopls' },
-    -- for postfix snippets and analyzers
-    capabilities = capabilities,
-    settings = {
-        gopls = {
-            experimentalPostfixCompletions = true,
-            analyses = {
-                unusedparams = true,
-                shadow = true,
-            },
-            staticcheck = true,
-        },
-    },
-    on_attach = lsp_on_attach,
-}
+-- nvim_lsp.gopls.setup {
+--     cmd = { 'gopls' },
+--     -- for postfix snippets and analyzers
+--     capabilities = capabilities,
+--     settings = {
+--         gopls = {
+--             experimentalPostfixCompletions = true,
+--             analyses = {
+--                 unusedparams = true,
+--                 shadow = true,
+--             },
+--             staticcheck = true,
+--         },
+--     },
+--     on_attach = lsp_on_attach,
+-- }
 
+-- ----------------------------------------------------------------------
+--  rayx/go
+local format_sync_grp = vim.api.nvim_create_augroup("GoFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.go",
+    callback = function()
+        require('go.format').goimport()
+    end,
+    group = format_sync_grp,
+})
+
+require('go').setup({
+    -- other setups ....
+    lsp_cfg = {
+        capabilities = capabilities,
+        -- other setups
+    },
+    lsp_on_attach = lsp_on_attach,
+})
 -- function goimports(timeout_ms)
 --     local context = { source = { organizeImports = true } }
 --     vim.validate { context = { context, "t", true } }
@@ -68,12 +87,16 @@ nvim_lsp.gopls.setup {
 -- " autocmd BufWritePre *.go lua vim.lsp.buf.format()
 -- autocmd BufWritePre *.go lua goimports(1000)
 -- ]]
-vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = '*.go',
-    callback = function()
-        vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
-    end
-})
+
+
+-- original...
+
+-- vim.api.nvim_create_autocmd('BufWritePre', {
+--     pattern = '*.go',
+--     callback = function()
+--         vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+--     end
+-- })
 ---- // GO LSP
 
 ---- LUA LSP
@@ -134,10 +157,7 @@ nvim_lsp.tsserver.setup {
 
 -- OmniSharp - i.e c#
 local pid = vim.fn.getpid()
--- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
 local omnisharp_bin = "/opt/omnisharp/OmniSharp"
--- on Windows
--- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
 
 local omni_config = {
     handlers = {
@@ -146,7 +166,7 @@ local omni_config = {
     cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
     -- rest of your settings
     enable_editorconfig_support = true,
-
+    on_attach = lsp_on_attach,
 }
 
 nvim_lsp.omnisharp.setup(omni_config)

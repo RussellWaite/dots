@@ -1,5 +1,3 @@
---settings.lua
-
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.tabstop = 4
@@ -16,10 +14,10 @@ vim.opt.timeoutlen = 300
 -- override default loading of netrw, use Telescope instead
 -- so disable unused plugins for speed
 local disabled_built_ins = {
-    --[[ "netrw",
+    "netrw",
     "netrwPlugin",
     "netrwSettings",
-    "netrwFileHandlers", ]]
+    "netrwFileHandlers",
     "gzip",
     "zip",
     "zipPlugin",
@@ -40,9 +38,10 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
 
-
-vim.cmd[[
+vim.cmd [[
     autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope fd initial_mode=insert' | endif
 ]]
---autocmd! VimEnter * if isdirectory(expand('%:p')) | exe 'cd %:p:h' | exe 'bd!'| exe 'Telescope file_browser initial_mode=normal' | endif
 
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldenable = false

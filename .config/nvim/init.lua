@@ -1,23 +1,18 @@
-
-
 require('settings')
-require('keymaps')
 
 -- plugins
 --
--- remmeber to have packer installed, so run this if it's not already:
--- git clone --depth 1 https://github.com/wbthomason/packer.nvim  ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-require ('plugins')
-
-
-
---require('statusline.line')
---require('treesitter')
---require('fzy/fzy')
-
--- lsp setup
---require('lsp.config')
---require('lsp.python')
---require('lsp.go')
-
---print("hey this is working!")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+require('lazy_plugins')
+require('keymaps')

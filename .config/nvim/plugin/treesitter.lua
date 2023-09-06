@@ -1,9 +1,12 @@
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "bash", "c", "cmake", "css", "dockerfile", "go", "gomod", "gowork", "hcl", "help", "html",
-        "http", "javascript", "json", "lua", "make", "markdown", "python", "regex", "ruby", "rust", "toml", "vim", "yaml",
-        "zig" },
+    ensure_installed = { "bash", "c", "cmake", "dockerfile", "gomod", "gowork", "http", "make", "regex" },
+    sync_install = false,
+    auto_install = true,
     highlight = {
         enable = true,
+    },
+    indent = {
+        enabled = true,
     },
     rainbow = {
         enable = true,
@@ -53,7 +56,3 @@ require('nvim-treesitter.configs').setup {
         },
     },
 }
-
-vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-vim.opt.foldenable = false

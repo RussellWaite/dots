@@ -17,6 +17,16 @@ local function describeOptions(desc, options)
     return retVal
 end
 
+-- prevent me using cusor keys.
+-- map('n', '<Up>', '<Nop>', sOpts);
+-- map('n', '<Down>', '<Nop>', sOpts);
+-- map('n', '<left>', '<Nop>', sOpts);
+-- map('n', '<Right>', '<Nop>', sOpts);
+map('n', '<Up>', '<cmd>lua print "use hjkl"<cr>', sOpts);
+map('n', '<Down>', '<cmd>lua print "use hjkl"<cr>', sOpts);
+map('n', '<left>', '<cmd>lua print "use hjkl"<cr>', sOpts);
+map('n', '<Right>', '<cmd>lua print "use hjkl"<cr>', sOpts);
+
 map('n', '<space>ss', "<cmd>lua require('sg.extensions.telescope').fuzzy_search_results()<cr>",
     { desc = "Sourcegraph search" })
 map('v', '<space>se', ":CodyExplain<cr>", { desc = "Explain how to use Cody" })
@@ -170,3 +180,5 @@ map("n", "[x", "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
 map("n", "]x", "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
 map("n", "]gs", "<cmd>lua vim.diagnostic.show()<CR>", sOpts)
 map("n", "]ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", sOpts)
+-- map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
+map("n", "<C-Space>", "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
