@@ -14,6 +14,8 @@ telescope.setup {
                 ["<A-t>"] = trouble.open_with_trouble,
             },
         },
+        hidden = true,
+        file_ignore_patterns = { "^./.git/", "^node_modules/", "^vendor/", "^target/", "/bin/", "/obj/", },
     },
     extensions = {
         ["file_browser"] = {

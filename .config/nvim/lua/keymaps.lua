@@ -49,9 +49,11 @@ map('v', '<A-k>', ":m '<-2<CR>gv=gv", { noremap = true })
 -- Telescope
 map('n', '<leader>t', ":Telescope<cr>", { desc = "Telescope" })
 map('n', '<leader>ff', "<cmd>lua require('telescope.builtin').find_files()<cr>", { desc = "Telescope - Find Files" })
+map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').find_files({hidden=true})<cr>",
+    { desc = "Telescope - Find Files" })
 map('n', '<leader>fg', "<cmd>lua require('telescope.builtin').live_grep()<cr>", { desc = "Telescope - Live Grep" })
 map('n', '<leader>fb', "<cmd>lua require('telescope.builtin').buffers()<cr>", { desc = "Telescope - Buffers" })
-map('n', '<leader>fh', "<cmd>lua require('telescope.builtin').help_tags()<cr>", { desc = "Telescope - Help Tags" })
+map('n', '<leader>fm', "<cmd>lua require('telescope.builtin').help_tags()<cr>", { desc = "Telescope - Help Tags" })
 map("n", "<leader>fe", ":Telescope file_browser<CR>", { noremap = true, desc = "Telescope - File Explorer" })
 
 -- Trouble
@@ -180,5 +182,5 @@ map("n", "[x", "<cmd>lua vim.diagnostic.goto_prev()<CR>", sOpts)
 map("n", "]x", "<cmd>lua vim.diagnostic.goto_next()<CR>", sOpts)
 map("n", "]gs", "<cmd>lua vim.diagnostic.show()<CR>", sOpts)
 map("n", "]ga", "<cmd>lua vim.lsp.buf.code_action()<CR>", sOpts)
--- map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
+map("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)
 map("n", "<C-Space>", "<cmd>lua vim.lsp.buf.hover()<CR>", sOpts)

@@ -15,6 +15,7 @@ compinit
 # End of lines added by compinstall
 
 #trying out a more efficient path update (i.e. don't keep adding duplicates)
+# source: https://superuser.com/questions/39751/add-directory-to-path-if-its-not-already-there
 pathadd() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         PATH="${PATH:+"$PATH:"}$1"
@@ -33,6 +34,9 @@ pathadd /usr/share/bcc/tools
 pathadd /opt/flutter/bin
 export EDITOR=nvim
 
+# fix mutter/wayland/firefox bug that's REALLY annoying
+export MOZ_ENABLE_WAYLAND=1
+export XDG_CONFIG_HOME=$HOME/.config/
 # setup expected defaults for ohmyzsh based plugins (kubectl for completion)
 if [[ -z "$ZSH" ]]; then
   ZSH=~/zsh
@@ -45,13 +49,13 @@ mkdir -p $ZSH_CACHE_DIR
 eval "$(starship init zsh)"
 
 alias colours='f(){ for i in {0..255}; do printf "\x1b[38;5;${i}mcolour%-5i\x1b[0m" $i ; if ! (( ($i + 1 ) % 8 )); then echo ; fi ; done; }; f'
-alias lsx='exa -lhaTR --git'
+alias lsx='eza -lhaTR --git'
 alias start_i3='XDG_SESSION_TYPE=wayland dbus-run-session i3'
 alias start_gnome='XDG_SESSION_TYPE=wayland dbus-run-session gnome-session'
 alias krew='kubectl krew'
 alias nc='ncat'
 alias vim=nvim
-alias ls=exa
+alias ls='eza -alh --time-style long-iso --git'
 alias myip='dig TXT ip.sslip.io @ns.sslip.io +short'
 alias favs='cat ~/.histfile | cut -d" " -f1 | sort | uniq -c | sort -n'
 alias re='r(){ rustc --explain $1 | bat -l rust --theme zenburn }; r' 
@@ -60,6 +64,7 @@ alias cpu='watch -n 2 "cat /proc/cpuinfo | grep MHz"'
 alias update_anitdote_plugins=' cd ~/.cache/antidote && ls  | xargs -I % echo "cd ~/.cache/antidote/% && git pull;" | sh'
 alias pycode='code --enable-proposed-api ms-toolsai.jupyter'
 alias prcode="code --enable-proposed-api GitHub.vscode-pull-request-github"
+alias cat=bat
 
 # and finally - load the lovely plugins... quickly
 # updated to antidote as antigen is obsolete now.
@@ -86,8 +91,8 @@ fi
 # how I can have files in my home dir that are versioned controlled 
 # without having a .git folder in home and having to exclude everything 
 # I don't want on github
-alias dotgit='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
-dotgit config --local status.showUntrackedFiles no
+alias dot='/usr/bin/git --git-dir=$HOME/dots/ --work-tree=$HOME'
+dot config --local status.showUntrackedFiles no
 
 # in zsh enables hiding history by using a leading space e.g. " cat .zshrc" will not be added to .histfile but "cat .zshrc" still will be
 setopt HIST_IGNORE_SPACE

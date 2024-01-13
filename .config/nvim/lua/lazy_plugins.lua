@@ -17,10 +17,14 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     {
         'nvim-treesitter/nvim-treesitter',
-        build = ':TSUpdate'
+        build = ':TSUpdate',
+        event = { "BufReadPre", "BufNewFile" },
     },
     'romgrk/nvim-treesitter-context',
-    'nvim-treesitter/nvim-treesitter-textobjects',
+    {
+        'nvim-treesitter/nvim-treesitter-textobjects',
+        -- lazy = true,
+    },
     -- could also  'mizlan/iswap.nvim' for swapping items, more options than textobjects
     'nvim-treesitter/playground',
     'neovim/nvim-lspconfig',
@@ -62,9 +66,10 @@ require("lazy").setup({
         dependencies = "kyazdani42/nvim-web-devicons",
     },
     'folke/which-key.nvim',
-    'gpanders/editorconfig.nvim',
+    -- 'gpanders/editorconfig.nvim',
     'numToStr/Comment.nvim',
-
+    -- toggle focus on current function with :Twilight
+    'folke/twilight.nvim',
     -- git
     {
         'sindrets/diffview.nvim',
@@ -92,7 +97,23 @@ require("lazy").setup({
     },
     'nvim-telescope/telescope-ui-select.nvim',
 
-    'kyazdani42/nvim-web-devicons',
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            -- add any options here
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    },
+
+    -- 'kyazdani42/nvim-web-devicons',
     {
         'nvim-lualine/lualine.nvim',
         dependencies = {
@@ -102,14 +123,14 @@ require("lazy").setup({
     },
 
     { dir = '~/dev/lua/dockeddocs/' },
-    {
-        dir = '~/dev/lua/rwplugin/',
-        config = function()
-            require("rwplugin").setup({
-                -- leave empty to use defaults
-            })
-        end
-    },
+    -- {
+    --     dir = '~/dev/lua/rwplugin/',
+    --     config = function()
+    --         require("rwplugin").setup({
+    --             -- leave empty to use defaults
+    --         })
+    --     end
+    -- },
     {
         "kylechui/nvim-surround",
         version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -132,6 +153,12 @@ require("lazy").setup({
         build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
     },
 
+    -- unit test coverage
+    'andythigpen/nvim-coverage',
+
+    'simrat39/symbols-outline.nvim',
+
+    -- themes
     'folke/tokyonight.nvim',
     'Shatur/neovim-ayu',
     'rebelot/kanagawa.nvim',
@@ -139,9 +166,9 @@ require("lazy").setup({
     -- AI
     {
         'sourcegraph/sg.nvim',
-        dependencies = {
-            'nvim-telescope/telescope.nvim'
-        }
+        dependencies = { "nvim-lua/plenary.nvim" },
+        -- build        = "nvim -l build/init.lua",
+        pin          = false, -- lock version so we don't break Cody whilst TJ figures out what is happening and others are commiting things that break
     },
 
 })

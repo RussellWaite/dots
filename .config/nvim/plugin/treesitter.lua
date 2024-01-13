@@ -1,19 +1,67 @@
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "bash", "c", "cmake", "dockerfile", "gomod", "gowork", "http", "make", "regex" },
+    ensure_installed = {
+        "bash",
+        "c",
+        "cmake",
+        "c_sharp",
+        "dockerfile",
+        "gomod",
+        "gowork",
+        "http",
+        "javascript",
+        "lua",
+        "make",
+        "regex",
+        "rust",
+        "typescript"
+    },
     sync_install = false,
     auto_install = true,
-    highlight = {
-        enable = true,
-    },
-    indent = {
-        enabled = true,
-    },
+    highlight = { enable = true, },
+    indent = { enabled = true, },
     rainbow = {
         enable = true,
         extended_mode = true,
         max_file_lines = nil,
     },
     textobjects = {
+        select = {
+            enabled = true,
+            lookahead = true,
+            keymaps = {
+                ["a="] = { query = "@assignment.outer", desc = "Select outer part of assignment", },
+                ["i="] = { query = "@assignment.inner", desc = "Select inner part of assignment", },
+                ["l="] = { query = "@assignment.lhs", desc = "Select LHS of assignment", },
+                ["r="] = { query = "@assignment.rhs", desc = "Select RHS of assignment", },
+
+                ["aa"] = { query = "@parameter.outer", desc = "Select outer part of a parameter/argument" },
+                ["ia"] = { query = "@parameter.inner", desc = "Select inner part of a parameter/argument" },
+
+                ["ai"] = { query = "@conditional.outer", desc = "Select outer part of a conditional" },
+                ["ii"] = { query = "@conditional.inner", desc = "Select inner part of a conditional" },
+
+                ["al"] = { query = "@loop.outer", desc = "Select outer part of a loop" },
+                ["il"] = { query = "@loop.inner", desc = "Select inner part of a loop" },
+
+                ["af"] = { query = "@call.outer", desc = "Select outer part of a function call" },
+                ["if"] = { query = "@call.inner", desc = "Select inner part of a function call" },
+
+                ["am"] = { query = "@function.outer", desc = "Select outer part of a method/function definition" },
+                ["im"] = { query = "@function.inner", desc = "Select inner part of a method/function definition" },
+
+                ["ac"] = { query = "@class.outer", desc = "Select outer part of a class" },
+                ["ic"] = { query = "@class.inner", desc = "Select inner part of a class" },
+            },
+        },
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "<C-e>",
+                node_incremental = "<C-e>",
+                scope_incremental = false,
+                node_decremental = "<bs>",
+            },
+        },
         swap = {
             enable = true,
             swap_next = {
